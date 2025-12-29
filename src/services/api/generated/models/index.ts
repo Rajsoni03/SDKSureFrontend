@@ -30,4 +30,6 @@ export * from './test-result-status-enum';
 export * from './test-run';
 export * from './test-run-status-enum';
 export * from './test-type';
+export * from './token-obtain-pair';
+export * from './token-refresh';
 export * from './user';

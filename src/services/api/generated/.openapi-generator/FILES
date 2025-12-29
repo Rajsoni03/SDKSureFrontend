@@ -1,6 +1,7 @@
 .gitignore
 .npmignore
 api.ts
+apis/authentication-api.ts
 apis/boards-api.ts
 apis/dashboard-metrics-api.ts
 apis/schema-api.ts
@@ -9,10 +10,10 @@ apis/tags-api.ts
 apis/test-cases-api.ts
 apis/test-runs-api.ts
 apis/test-types-api.ts
-apis/users-api.ts
 base.ts
 common.ts
 configuration.ts
+docs/AuthenticationApi.md
 docs/BaudRateEnum.md
 docs/Board.md
 docs/BoardCapability.md
@@ -53,8 +54,9 @@ docs/TestRunStatusEnum.md
 docs/TestRunsApi.md
 docs/TestType.md
 docs/TestTypesApi.md
+docs/TokenObtainPair.md
+docs/TokenRefresh.md
 docs/User.md
-docs/UsersApi.md
 git_push.sh
 index.ts
 models/baud-rate-enum.ts
@@ -90,4 +92,6 @@ models/test-result.ts
 models/test-run-status-enum.ts
 models/test-run.ts
 models/test-type.ts
+models/token-obtain-pair.ts
+models/token-refresh.ts
 models/user.ts

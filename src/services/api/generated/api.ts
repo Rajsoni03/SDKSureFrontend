@@ -14,6 +14,7 @@
 
 
 
+export * from './apis/authentication-api';
 export * from './apis/boards-api';
 export * from './apis/dashboard-metrics-api';
 export * from './apis/schema-api';
@@ -22,5 +23,4 @@ export * from './apis/tags-api';
 export * from './apis/test-cases-api';
 export * from './apis/test-runs-api';
 export * from './apis/test-types-api';
-export * from './apis/users-api';
 

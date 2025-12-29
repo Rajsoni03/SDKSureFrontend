@@ -1,10 +1,11 @@
 import axios from 'axios'
 
-const apiBaseUrl =
+const rawApiUrl =
   import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? 'http://localhost:8000/api/v1'
+const apiHost = rawApiUrl.replace(/\/api\/v1\/?$/i, '')
 
 export const apiClient = axios.create({
-  baseURL: apiBaseUrl,
+  baseURL: apiHost,
   timeout: Number(import.meta.env.VITE_API_TIMEOUT ?? 30000),
 })
 
