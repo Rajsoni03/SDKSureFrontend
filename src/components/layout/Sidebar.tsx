@@ -17,6 +17,8 @@ const navItems = [
   { label: 'Test Runs', icon: Activity, href: '/test-runs' },
   { label: 'Test Cases', icon: Layers, href: '/test-cases' },
   { label: 'Users', icon: Users, href: '/users' },
+  { label: 'Configs', icon: Settings, href: '/configs' },
+  { label: 'Tags', icon: BarChart2, href: '/tags' },
   { label: 'Analytics', icon: BarChart2, href: '/analytics' },
 ]
 
@@ -59,6 +61,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
           <NavLink
             key={item.href}
             to={item.href}
+            onClick={onClose}
             className={({ isActive }) =>
               cn(
                 'group flex items-center gap-3 rounded-lg px-3 py-2 transition-colors',

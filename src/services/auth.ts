@@ -14,4 +14,5 @@ export const authService = {
     authApi.authRefreshCreate({
       tokenRefresh: payload,
     }),
+  me: () => authApi.authMeRetrieve(),
 }

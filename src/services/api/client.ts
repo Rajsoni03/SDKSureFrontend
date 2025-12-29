@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useAuthStore } from '@/store/authStore'
 
 const rawApiUrl =
   import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? 'http://localhost:8000/api/v1'
@@ -8,6 +9,20 @@ export const apiClient = axios.create({
   baseURL: apiHost,
   timeout: Number(import.meta.env.VITE_API_TIMEOUT ?? 30000),
 })
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.status === 401) {
+      const authStore = useAuthStore.getState()
+      authStore.clear()
+      if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        window.location.href = '/'
+      }
+    }
+    return Promise.reject(error)
+  },
+)
 
 apiClient.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {

@@ -72,6 +72,42 @@ export const AuthenticationApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
+         * Return the current authenticated user\'s details.
+         * @summary Get current authenticated user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authMeRetrieve: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/auth/me/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication cookieAuth required
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * JWT refresh endpoint.
          * @summary Refresh access token
          * @param {TokenRefresh} tokenRefresh 
@@ -382,6 +418,18 @@ export const AuthenticationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Return the current authenticated user\'s details.
+         * @summary Get current authenticated user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authMeRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authMeRetrieve(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthenticationApi.authMeRetrieve']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * JWT refresh endpoint.
          * @summary Refresh access token
          * @param {TokenRefresh} tokenRefresh 
@@ -488,6 +536,15 @@ export const AuthenticationApiFactory = function (configuration?: Configuration,
          */
         authLoginCreate(requestParameters: AuthenticationApiAuthLoginCreateRequest, options?: RawAxiosRequestConfig): AxiosPromise<TokenObtainPair> {
             return localVarFp.authLoginCreate(requestParameters.tokenObtainPair, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Return the current authenticated user\'s details.
+         * @summary Get current authenticated user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authMeRetrieve(options?: RawAxiosRequestConfig): AxiosPromise<User> {
+            return localVarFp.authMeRetrieve(options).then((request) => request(axios, basePath));
         },
         /**
          * JWT refresh endpoint.
@@ -654,6 +711,16 @@ export class AuthenticationApi extends BaseAPI {
      */
     public authLoginCreate(requestParameters: AuthenticationApiAuthLoginCreateRequest, options?: RawAxiosRequestConfig) {
         return AuthenticationApiFp(this.configuration).authLoginCreate(requestParameters.tokenObtainPair, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Return the current authenticated user\'s details.
+     * @summary Get current authenticated user
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authMeRetrieve(options?: RawAxiosRequestConfig) {
+        return AuthenticationApiFp(this.configuration).authMeRetrieve(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

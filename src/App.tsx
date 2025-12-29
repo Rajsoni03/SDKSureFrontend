@@ -1,26 +1,42 @@
-import { Bell, LogOut, Menu, Search } from 'lucide-react'
+import { Bell, LogOut, Menu, Search, Moon, Sun } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { Sidebar } from '@/components/layout/Sidebar'
 import { DashboardMetrics } from '@/components/dashboard/DashboardMetrics'
+import { BoardsPage } from '@/components/board/BoardsPage'
+import { UsersPage } from '@/components/user/UsersPage'
+import { SystemConfigsPage } from '@/components/config/SystemConfigsPage'
+import { TagsPage } from '@/components/tag/TagsPage'
+import { TestRunsPage } from '@/components/test-run/TestRunsPage'
+import { TestCasesPage } from '@/components/test-case/TestCasesPage'
 import { Button } from '@/components/ui/button'
 import { LoginPage } from '@/components/auth/LoginPage'
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { useAuthStore } from '@/store/authStore'
 import { useAuth } from '@/hooks/useAuth'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { useThemeStore } from '@/store/themeStore'
 import { cn } from '@/lib/utils'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
-  const { isAuthenticated } = useAuthStore()
-  const { logout } = useAuth()
+  const { isAuthenticated, tokens, user } = useAuthStore()
+  const { logout, fetchCurrentUser } = useAuth()
   const { theme } = useThemeStore()
   const isDark = theme === 'dark'
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    if (tokens && !user) {
+      fetchCurrentUser().catch(() => {
+        // if fetch fails, auth interceptor will handle redirect on next request
+      })
+    }
+  }, [tokens, user, fetchCurrentUser])
 
   if (!isAuthenticated) {
     return <LoginPage />
@@ -46,7 +62,7 @@ function App() {
           )}
         />
         <div className="relative flex flex-col gap-6 p-6 sm:p-8">
-          <header className="flex flex-wrap items-center justify-between gap-4">
+          <header className="flex flex-wrap items-start justify-between gap-4">
             <div className="flex items-start gap-3">
               <Button
                 variant="ghost"
@@ -59,16 +75,16 @@ function App() {
               </Button>
               <div>
                 <p className="text-sm uppercase tracking-wide text-emerald-300">Control Center</p>
-                <h1 className={cn('text-3xl font-semibold', isDark ? 'text-white' : 'text-slate-900')}>
+                {/* <h1 className={cn('text-3xl font-semibold', isDark ? 'text-white' : 'text-slate-900')}>
                   Dashboard
                 </h1>
                 <p className={cn('text-sm', isDark ? 'text-slate-300' : 'text-slate-600')}>
                   Monitor live metrics from boards, test runs, and users.
-                </p>
+                </p> */}
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 rounded-lg border theme-border theme-panel-soft px-3 py-2">
+            <div className="flex w-full flex-wrap items-center justify-end gap-2 lg:gap-3 lg:w-auto">
+              <div className="flex min-w-[220px] flex-1 items-center gap-2 rounded-lg border theme-border theme-panel-soft px-3 py-2 lg:min-w-[260px]">
                 <Search className="h-4 w-4 text-slate-400" />
                 <input
                   placeholder="Search"
@@ -78,21 +94,55 @@ function App() {
                   )}
                 />
               </div>
-              <Button variant="secondary" size="sm" className="gap-2">
+              <Button variant="secondary" size="icon" className="hidden sm:inline-flex">
                 <Bell className="h-4 w-4" />
-                Alerts
               </Button>
-              <ThemeToggle />
-              <Button variant="ghost" size="sm" className="gap-2" onClick={logout}>
+              <button
+                type="button"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border theme-border bg-panel-soft text-[var(--text)] transition hover:border-emerald-300/60"
+                onClick={() => {
+                  const next = isDark ? 'light' : 'dark'
+                  document.documentElement.setAttribute('data-theme', next)
+                  useThemeStore.getState().setTheme(next as any)
+                }}
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
+              <button
+                type="button"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border theme-border bg-panel-soft text-[var(--text)] transition hover:border-emerald-300/60"
+                onClick={() => setShowLogoutConfirm(true)}
+                aria-label="Sign out"
+              >
                 <LogOut className="h-4 w-4" />
-                Sign out
-              </Button>
+              </button>
             </div>
           </header>
 
-          <DashboardMetrics />
+          <Routes>
+            <Route path="/" element={<DashboardMetrics />} />
+            <Route path="/boards" element={<BoardsPage />} />
+            <Route path="/test-runs" element={<TestRunsPage />} />
+            <Route path="/test-cases" element={<TestCasesPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/configs" element={<SystemConfigsPage />} />
+            <Route path="/tags" element={<TagsPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </div>
       </div>
+      <ConfirmDialog
+        isOpen={showLogoutConfirm}
+        title="Sign out?"
+        description="You will need to sign in again to continue."
+        confirmLabel="Sign out"
+        onCancel={() => setShowLogoutConfirm(false)}
+        onConfirm={() => {
+          setShowLogoutConfirm(false)
+          logout()
+        }}
+      />
     </div>
   )
 }

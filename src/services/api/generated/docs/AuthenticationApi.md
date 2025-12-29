@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:8000*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**authLoginCreate**](#authlogincreate) | **POST** /api/v1/auth/login/ | Login to obtain access and refresh tokens|
+|[**authMeRetrieve**](#authmeretrieve) | **GET** /api/v1/auth/me/ | Get current authenticated user|
 |[**authRefreshCreate**](#authrefreshcreate) | **POST** /api/v1/auth/refresh/ | Refresh access token|
 |[**usersCreate**](#userscreate) | **POST** /api/v1/users/ | |
 |[**usersDestroy**](#usersdestroy) | **DELETE** /api/v1/users/{id}/ | |
@@ -55,6 +56,50 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** |  |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authMeRetrieve**
+> User authMeRetrieve()
+
+Return the current authenticated user\'s details.
+
+### Example
+
+```typescript
+import {
+    AuthenticationApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AuthenticationApi(configuration);
+
+const { status, data } = await apiInstance.authMeRetrieve();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**User**
+
+### Authorization
+
+[cookieAuth](../README.md#cookieAuth), [jwtAuth](../README.md#jwtAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 

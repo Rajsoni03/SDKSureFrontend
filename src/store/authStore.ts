@@ -18,15 +18,35 @@ interface AuthState {
 const initialAccess = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
 const initialRefresh =
   typeof window !== 'undefined' ? window.localStorage.getItem('refreshToken') : null
+const initialUser =
+  typeof window !== 'undefined'
+    ? (() => {
+        const raw = window.localStorage.getItem('currentUser')
+        if (!raw) return null
+        try {
+          return JSON.parse(raw) as User
+        } catch {
+          return null
+        }
+      })()
+    : null
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
+  user: initialUser,
   tokens: initialAccess && initialRefresh ? { access: initialAccess, refresh: initialRefresh } : null,
   isAuthenticated: !!initialAccess,
 
   setUser: (user) =>
     set((state) => ({
       user,
+      ...(typeof window !== 'undefined' && (() => {
+        if (user) {
+          window.localStorage.setItem('currentUser', JSON.stringify(user))
+        } else {
+          window.localStorage.removeItem('currentUser')
+        }
+        return {}
+      })()),
       isAuthenticated: state.isAuthenticated || !!user,
     })),
 
@@ -44,6 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   clear: () => {
     window.localStorage.removeItem('accessToken')
     window.localStorage.removeItem('refreshToken')
+    window.localStorage.removeItem('currentUser')
     set({
       user: null,
       tokens: null,
