@@ -39,7 +39,7 @@ export const PcStatsApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         pcStatsList: async (ordering?: string, page?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/pc-stats/`;
+            const localVarPath = `/api/v1/workstation-stats/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -89,7 +89,7 @@ export const PcStatsApiAxiosParamCreator = function (configuration?: Configurati
         pcStatsRetrieve: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('pcStatsRetrieve', 'id', id)
-            const localVarPath = `/api/v1/pc-stats/{id}/`
+            const localVarPath = `/api/v1/workstation-stats/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

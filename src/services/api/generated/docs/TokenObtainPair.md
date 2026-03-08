@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **string** |  | [default to undefined]
+**username** | **string** |  | [default to undefined]
 **password** | **string** |  | [default to undefined]
 **access** | **string** |  | [readonly] [default to undefined]
 **refresh** | **string** |  | [readonly] [default to undefined]
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 import { TokenObtainPair } from './api';
 
 const instance: TokenObtainPair = {
-    email,
+    username,
     password,
     access,
     refresh,

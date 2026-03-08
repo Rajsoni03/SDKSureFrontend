@@ -6,7 +6,7 @@ import { apiClient } from './api/client'
 const authApi = AuthenticationApiFactory(apiConfiguration, undefined, apiClient)
 
 export const authService = {
-  login: (payload: Pick<TokenObtainPair, 'email' | 'password'>) =>
+  login: (payload: Pick<TokenObtainPair, 'username' | 'password'>) =>
     authApi.authLoginCreate({
       tokenObtainPair: { ...payload, access: '', refresh: '' },
     }),

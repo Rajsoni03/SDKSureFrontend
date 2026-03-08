@@ -15,12 +15,12 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { TestPC } from './test-pc';
+import type { Workstation } from './workstation';
 
-export interface PaginatedTestPCList {
+export interface PaginatedWorkstationList {
     'count': number;
     'next'?: string | null;
     'previous'?: string | null;
-    'results': Array<TestPC>;
+    'results': Array<Workstation>;
 }
 

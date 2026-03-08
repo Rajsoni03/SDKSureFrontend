@@ -11,7 +11,7 @@ import { TestRunsPage } from '@/components/test-run/TestRunsPage'
 import { TestCasesPage } from '@/components/test-case/TestCasesPage'
 import { CapabilitiesPage } from '@/components/capability/CapabilitiesPage'
 import { RelaysPage } from '@/components/relay/RelaysPage'
-import { TestPcsPage } from '@/components/test-pc/TestPcsPage'
+import { WorkstationsPage } from '@/components/workstation/WorkstationPage'
 import { TestScenariosPage } from '@/components/test-scenario/TestScenariosPage'
 import { Button } from '@/components/ui/button'
 import { LoginPage } from '@/components/auth/LoginPage'
@@ -134,7 +134,7 @@ function App() {
             <Route path="/labels" element={<LabelsPage />} />
             <Route path="/capabilities" element={<CapabilitiesPage />} />
             <Route path="/relays" element={<RelaysPage />} />
-            <Route path="/test-pcs" element={<TestPcsPage />} />
+            <Route path="/workstations" element={<WorkstationsPage />} />
             <Route path="/test-scenarios" element={<TestScenariosPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

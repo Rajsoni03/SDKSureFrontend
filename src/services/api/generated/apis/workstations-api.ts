@@ -22,26 +22,26 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { PaginatedTestPCList } from '../models';
+import type { PaginatedWorkstationList } from '../models';
 // @ts-ignore
-import type { PatchedTestPC } from '../models';
+import type { PatchedWorkstation } from '../models';
 // @ts-ignore
-import type { TestPC } from '../models';
+import type { Workstation } from '../models';
 /**
- * TestPcsApi - axios parameter creator
+ * WorkstationsApi - axios parameter creator
  */
-export const TestPcsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const WorkstationsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * CRUD operations for test PCs.
-         * @param {TestPC} testPC 
+         * @param {Workstation} workstation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsCreate: async (testPC: TestPC, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'testPC' is not null or undefined
-            assertParamExists('testPcsCreate', 'testPC', testPC)
-            const localVarPath = `/api/v1/test-pcs/`;
+        workstationsCreate: async (workstation: Workstation, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workstation' is not null or undefined
+            assertParamExists('workstationsCreate', 'workstation', workstation)
+            const localVarPath = `/api/v1/workstations/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -65,7 +65,7 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(testPC, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(workstation, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -74,14 +74,14 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
+         * @param {string} id A UUID string identifying this Workstation.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsDestroy: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        workstationsDestroy: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('testPcsDestroy', 'id', id)
-            const localVarPath = `/api/v1/test-pcs/{id}/`
+            assertParamExists('workstationsDestroy', 'id', id)
+            const localVarPath = `/api/v1/workstations/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -118,8 +118,8 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsList: async (ordering?: string, page?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/test-pcs/`;
+        workstationsList: async (ordering?: string, page?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/workstations/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -162,15 +162,15 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
-         * @param {PatchedTestPC} [patchedTestPC] 
+         * @param {string} id A UUID string identifying this Workstation.
+         * @param {PatchedWorkstation} [patchedWorkstation] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsPartialUpdate: async (id: string, patchedTestPC?: PatchedTestPC, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        workstationsPartialUpdate: async (id: string, patchedWorkstation?: PatchedWorkstation, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('testPcsPartialUpdate', 'id', id)
-            const localVarPath = `/api/v1/test-pcs/{id}/`
+            assertParamExists('workstationsPartialUpdate', 'id', id)
+            const localVarPath = `/api/v1/workstations/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -195,7 +195,7 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTestPC, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(patchedWorkstation, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -204,14 +204,14 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
+         * @param {string} id A UUID string identifying this Workstation.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsRetrieve: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        workstationsRetrieve: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('testPcsRetrieve', 'id', id)
-            const localVarPath = `/api/v1/test-pcs/{id}/`
+            assertParamExists('workstationsRetrieve', 'id', id)
+            const localVarPath = `/api/v1/workstations/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -243,17 +243,17 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
-         * @param {TestPC} testPC 
+         * @param {string} id A UUID string identifying this Workstation.
+         * @param {Workstation} workstation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsUpdate: async (id: string, testPC: TestPC, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        workstationsUpdate: async (id: string, workstation: Workstation, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('testPcsUpdate', 'id', id)
-            // verify required parameter 'testPC' is not null or undefined
-            assertParamExists('testPcsUpdate', 'testPC', testPC)
-            const localVarPath = `/api/v1/test-pcs/{id}/`
+            assertParamExists('workstationsUpdate', 'id', id)
+            // verify required parameter 'workstation' is not null or undefined
+            assertParamExists('workstationsUpdate', 'workstation', workstation)
+            const localVarPath = `/api/v1/workstations/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -278,7 +278,7 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(testPC, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(workstation, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -289,33 +289,33 @@ export const TestPcsApiAxiosParamCreator = function (configuration?: Configurati
 };
 
 /**
- * TestPcsApi - functional programming interface
+ * WorkstationsApi - functional programming interface
  */
-export const TestPcsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TestPcsApiAxiosParamCreator(configuration)
+export const WorkstationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WorkstationsApiAxiosParamCreator(configuration)
     return {
         /**
          * CRUD operations for test PCs.
-         * @param {TestPC} testPC 
+         * @param {Workstation} workstation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testPcsCreate(testPC: TestPC, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestPC>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testPcsCreate(testPC, options);
+        async workstationsCreate(workstation: Workstation, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workstation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workstationsCreate(workstation, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TestPcsApi.testPcsCreate']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WorkstationsApi.workstationsCreate']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
+         * @param {string} id A UUID string identifying this Workstation.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testPcsDestroy(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testPcsDestroy(id, options);
+        async workstationsDestroy(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workstationsDestroy(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TestPcsApi.testPcsDestroy']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WorkstationsApi.workstationsDestroy']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -326,137 +326,137 @@ export const TestPcsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testPcsList(ordering?: string, page?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedTestPCList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testPcsList(ordering, page, search, options);
+        async workstationsList(ordering?: string, page?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedWorkstationList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workstationsList(ordering, page, search, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TestPcsApi.testPcsList']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WorkstationsApi.workstationsList']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
-         * @param {PatchedTestPC} [patchedTestPC] 
+         * @param {string} id A UUID string identifying this Workstation.
+         * @param {PatchedWorkstation} [patchedWorkstation] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testPcsPartialUpdate(id: string, patchedTestPC?: PatchedTestPC, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestPC>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testPcsPartialUpdate(id, patchedTestPC, options);
+        async workstationsPartialUpdate(id: string, patchedWorkstation?: PatchedWorkstation, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workstation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workstationsPartialUpdate(id, patchedWorkstation, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TestPcsApi.testPcsPartialUpdate']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WorkstationsApi.workstationsPartialUpdate']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
+         * @param {string} id A UUID string identifying this Workstation.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testPcsRetrieve(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestPC>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testPcsRetrieve(id, options);
+        async workstationsRetrieve(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workstation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workstationsRetrieve(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TestPcsApi.testPcsRetrieve']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WorkstationsApi.workstationsRetrieve']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * CRUD operations for test PCs.
-         * @param {string} id A UUID string identifying this Test PC.
-         * @param {TestPC} testPC 
+         * @param {string} id A UUID string identifying this Workstation.
+         * @param {Workstation} workstation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testPcsUpdate(id: string, testPC: TestPC, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestPC>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testPcsUpdate(id, testPC, options);
+        async workstationsUpdate(id: string, workstation: Workstation, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workstation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workstationsUpdate(id, workstation, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TestPcsApi.testPcsUpdate']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WorkstationsApi.workstationsUpdate']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * TestPcsApi - factory interface
+ * WorkstationsApi - factory interface
  */
-export const TestPcsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TestPcsApiFp(configuration)
+export const WorkstationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WorkstationsApiFp(configuration)
     return {
         /**
          * CRUD operations for test PCs.
-         * @param {TestPcsApiTestPcsCreateRequest} requestParameters Request parameters.
+         * @param {WorkstationsApiWorkstationsCreateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsCreate(requestParameters: TestPcsApiTestPcsCreateRequest, options?: RawAxiosRequestConfig): AxiosPromise<TestPC> {
-            return localVarFp.testPcsCreate(requestParameters.testPC, options).then((request) => request(axios, basePath));
+        workstationsCreate(requestParameters: WorkstationsApiWorkstationsCreateRequest, options?: RawAxiosRequestConfig): AxiosPromise<Workstation> {
+            return localVarFp.workstationsCreate(requestParameters.workstation, options).then((request) => request(axios, basePath));
         },
         /**
          * CRUD operations for test PCs.
-         * @param {TestPcsApiTestPcsDestroyRequest} requestParameters Request parameters.
+         * @param {WorkstationsApiWorkstationsDestroyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsDestroy(requestParameters: TestPcsApiTestPcsDestroyRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.testPcsDestroy(requestParameters.id, options).then((request) => request(axios, basePath));
+        workstationsDestroy(requestParameters: WorkstationsApiWorkstationsDestroyRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.workstationsDestroy(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
          * CRUD operations for test PCs.
-         * @param {TestPcsApiTestPcsListRequest} requestParameters Request parameters.
+         * @param {WorkstationsApiWorkstationsListRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsList(requestParameters: TestPcsApiTestPcsListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedTestPCList> {
-            return localVarFp.testPcsList(requestParameters.ordering, requestParameters.page, requestParameters.search, options).then((request) => request(axios, basePath));
+        workstationsList(requestParameters: WorkstationsApiWorkstationsListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedWorkstationList> {
+            return localVarFp.workstationsList(requestParameters.ordering, requestParameters.page, requestParameters.search, options).then((request) => request(axios, basePath));
         },
         /**
          * CRUD operations for test PCs.
-         * @param {TestPcsApiTestPcsPartialUpdateRequest} requestParameters Request parameters.
+         * @param {WorkstationsApiWorkstationsPartialUpdateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsPartialUpdate(requestParameters: TestPcsApiTestPcsPartialUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<TestPC> {
-            return localVarFp.testPcsPartialUpdate(requestParameters.id, requestParameters.patchedTestPC, options).then((request) => request(axios, basePath));
+        workstationsPartialUpdate(requestParameters: WorkstationsApiWorkstationsPartialUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<Workstation> {
+            return localVarFp.workstationsPartialUpdate(requestParameters.id, requestParameters.patchedWorkstation, options).then((request) => request(axios, basePath));
         },
         /**
          * CRUD operations for test PCs.
-         * @param {TestPcsApiTestPcsRetrieveRequest} requestParameters Request parameters.
+         * @param {WorkstationsApiWorkstationsRetrieveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsRetrieve(requestParameters: TestPcsApiTestPcsRetrieveRequest, options?: RawAxiosRequestConfig): AxiosPromise<TestPC> {
-            return localVarFp.testPcsRetrieve(requestParameters.id, options).then((request) => request(axios, basePath));
+        workstationsRetrieve(requestParameters: WorkstationsApiWorkstationsRetrieveRequest, options?: RawAxiosRequestConfig): AxiosPromise<Workstation> {
+            return localVarFp.workstationsRetrieve(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
          * CRUD operations for test PCs.
-         * @param {TestPcsApiTestPcsUpdateRequest} requestParameters Request parameters.
+         * @param {WorkstationsApiWorkstationsUpdateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testPcsUpdate(requestParameters: TestPcsApiTestPcsUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<TestPC> {
-            return localVarFp.testPcsUpdate(requestParameters.id, requestParameters.testPC, options).then((request) => request(axios, basePath));
+        workstationsUpdate(requestParameters: WorkstationsApiWorkstationsUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<Workstation> {
+            return localVarFp.workstationsUpdate(requestParameters.id, requestParameters.workstation, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for testPcsCreate operation in TestPcsApi.
+ * Request parameters for workstationsCreate operation in WorkstationsApi.
  */
-export interface TestPcsApiTestPcsCreateRequest {
-    readonly testPC: TestPC
+export interface WorkstationsApiWorkstationsCreateRequest {
+    readonly workstation: Workstation
 }
 
 /**
- * Request parameters for testPcsDestroy operation in TestPcsApi.
+ * Request parameters for workstationsDestroy operation in WorkstationsApi.
  */
-export interface TestPcsApiTestPcsDestroyRequest {
+export interface WorkstationsApiWorkstationsDestroyRequest {
     /**
-     * A UUID string identifying this Test PC.
+     * A UUID string identifying this Workstation.
      */
     readonly id: string
 }
 
 /**
- * Request parameters for testPcsList operation in TestPcsApi.
+ * Request parameters for workstationsList operation in WorkstationsApi.
  */
-export interface TestPcsApiTestPcsListRequest {
+export interface WorkstationsApiWorkstationsListRequest {
     /**
      * Which field to use when ordering the results.
      */
@@ -474,101 +474,101 @@ export interface TestPcsApiTestPcsListRequest {
 }
 
 /**
- * Request parameters for testPcsPartialUpdate operation in TestPcsApi.
+ * Request parameters for workstationsPartialUpdate operation in WorkstationsApi.
  */
-export interface TestPcsApiTestPcsPartialUpdateRequest {
+export interface WorkstationsApiWorkstationsPartialUpdateRequest {
     /**
-     * A UUID string identifying this Test PC.
+     * A UUID string identifying this Workstation.
      */
     readonly id: string
 
-    readonly patchedTestPC?: PatchedTestPC
+    readonly patchedWorkstation?: PatchedWorkstation
 }
 
 /**
- * Request parameters for testPcsRetrieve operation in TestPcsApi.
+ * Request parameters for workstationsRetrieve operation in WorkstationsApi.
  */
-export interface TestPcsApiTestPcsRetrieveRequest {
+export interface WorkstationsApiWorkstationsRetrieveRequest {
     /**
-     * A UUID string identifying this Test PC.
+     * A UUID string identifying this Workstation.
      */
     readonly id: string
 }
 
 /**
- * Request parameters for testPcsUpdate operation in TestPcsApi.
+ * Request parameters for workstationsUpdate operation in WorkstationsApi.
  */
-export interface TestPcsApiTestPcsUpdateRequest {
+export interface WorkstationsApiWorkstationsUpdateRequest {
     /**
-     * A UUID string identifying this Test PC.
+     * A UUID string identifying this Workstation.
      */
     readonly id: string
 
-    readonly testPC: TestPC
+    readonly workstation: Workstation
 }
 
 /**
- * TestPcsApi - object-oriented interface
+ * WorkstationsApi - object-oriented interface
  */
-export class TestPcsApi extends BaseAPI {
+export class WorkstationsApi extends BaseAPI {
     /**
      * CRUD operations for test PCs.
-     * @param {TestPcsApiTestPcsCreateRequest} requestParameters Request parameters.
+     * @param {WorkstationsApiWorkstationsCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public testPcsCreate(requestParameters: TestPcsApiTestPcsCreateRequest, options?: RawAxiosRequestConfig) {
-        return TestPcsApiFp(this.configuration).testPcsCreate(requestParameters.testPC, options).then((request) => request(this.axios, this.basePath));
+    public workstationsCreate(requestParameters: WorkstationsApiWorkstationsCreateRequest, options?: RawAxiosRequestConfig) {
+        return WorkstationsApiFp(this.configuration).workstationsCreate(requestParameters.workstation, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * CRUD operations for test PCs.
-     * @param {TestPcsApiTestPcsDestroyRequest} requestParameters Request parameters.
+     * @param {WorkstationsApiWorkstationsDestroyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public testPcsDestroy(requestParameters: TestPcsApiTestPcsDestroyRequest, options?: RawAxiosRequestConfig) {
-        return TestPcsApiFp(this.configuration).testPcsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    public workstationsDestroy(requestParameters: WorkstationsApiWorkstationsDestroyRequest, options?: RawAxiosRequestConfig) {
+        return WorkstationsApiFp(this.configuration).workstationsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * CRUD operations for test PCs.
-     * @param {TestPcsApiTestPcsListRequest} requestParameters Request parameters.
+     * @param {WorkstationsApiWorkstationsListRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public testPcsList(requestParameters: TestPcsApiTestPcsListRequest = {}, options?: RawAxiosRequestConfig) {
-        return TestPcsApiFp(this.configuration).testPcsList(requestParameters.ordering, requestParameters.page, requestParameters.search, options).then((request) => request(this.axios, this.basePath));
+    public workstationsList(requestParameters: WorkstationsApiWorkstationsListRequest = {}, options?: RawAxiosRequestConfig) {
+        return WorkstationsApiFp(this.configuration).workstationsList(requestParameters.ordering, requestParameters.page, requestParameters.search, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * CRUD operations for test PCs.
-     * @param {TestPcsApiTestPcsPartialUpdateRequest} requestParameters Request parameters.
+     * @param {WorkstationsApiWorkstationsPartialUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public testPcsPartialUpdate(requestParameters: TestPcsApiTestPcsPartialUpdateRequest, options?: RawAxiosRequestConfig) {
-        return TestPcsApiFp(this.configuration).testPcsPartialUpdate(requestParameters.id, requestParameters.patchedTestPC, options).then((request) => request(this.axios, this.basePath));
+    public workstationsPartialUpdate(requestParameters: WorkstationsApiWorkstationsPartialUpdateRequest, options?: RawAxiosRequestConfig) {
+        return WorkstationsApiFp(this.configuration).workstationsPartialUpdate(requestParameters.id, requestParameters.patchedWorkstation, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * CRUD operations for test PCs.
-     * @param {TestPcsApiTestPcsRetrieveRequest} requestParameters Request parameters.
+     * @param {WorkstationsApiWorkstationsRetrieveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public testPcsRetrieve(requestParameters: TestPcsApiTestPcsRetrieveRequest, options?: RawAxiosRequestConfig) {
-        return TestPcsApiFp(this.configuration).testPcsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    public workstationsRetrieve(requestParameters: WorkstationsApiWorkstationsRetrieveRequest, options?: RawAxiosRequestConfig) {
+        return WorkstationsApiFp(this.configuration).workstationsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * CRUD operations for test PCs.
-     * @param {TestPcsApiTestPcsUpdateRequest} requestParameters Request parameters.
+     * @param {WorkstationsApiWorkstationsUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public testPcsUpdate(requestParameters: TestPcsApiTestPcsUpdateRequest, options?: RawAxiosRequestConfig) {
-        return TestPcsApiFp(this.configuration).testPcsUpdate(requestParameters.id, requestParameters.testPC, options).then((request) => request(this.axios, this.basePath));
+    public workstationsUpdate(requestParameters: WorkstationsApiWorkstationsUpdateRequest, options?: RawAxiosRequestConfig) {
+        return WorkstationsApiFp(this.configuration).workstationsUpdate(requestParameters.id, requestParameters.workstation, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

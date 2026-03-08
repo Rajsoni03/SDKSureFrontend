@@ -18,9 +18,9 @@
 import type { OsVersionEnum } from './os-version-enum';
 // May contain unused imports in some cases
 // @ts-ignore
-import type { TestPCStatusEnum } from './test-pcstatus-enum';
+import type { WorkstationstatusEnum } from './workstationstatus-enum';
 
-export interface PatchedTestPC {
+export interface PatchedWorkstation {
     'id'?: string;
     /**
      * Hostname of the PC
@@ -45,7 +45,7 @@ export interface PatchedTestPC {
     /**
      * PC status  * `ONLINE` - Online * `OFFLINE` - Offline * `MAINTENANCE` - Maintenance * `INITIALIZING` - Initializing
      */
-    'status'?: TestPCStatusEnum;
+    'status'?: WorkstationstatusEnum;
     /**
      * Operating system version  * `ubuntu_18_04` - Ubuntu 18.04 LTS * `ubuntu_20_04` - Ubuntu 20.04 LTS * `ubuntu_22_04` - Ubuntu 22.04 LTS * `ubuntu_24_04` - Ubuntu 24.04 LTS * `centos_7` - CentOS 7 * `centos_8` - CentOS 8 * `centos_9` - CentOS 9 * `windows_10` - Windows 10 * `windows_11` - Windows 11 * `macos_ventura` - macOS Ventura * `macos_sonoma` - macOS Sonoma
      */

@@ -1,4 +1,4 @@
-# TestPCStatusEnum
+# WorkstationstatusEnum
 
 * `ONLINE` - Online * `OFFLINE` - Offline * `MAINTENANCE` - Maintenance * `INITIALIZING` - Initializing
 

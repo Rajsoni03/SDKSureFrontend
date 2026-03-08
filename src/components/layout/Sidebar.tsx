@@ -26,7 +26,7 @@ const navItems = [
   { label: 'Labels', icon: BarChart2, href: '/labels' },
   { label: 'Capabilities', icon: Activity, href: '/capabilities' },
   { label: 'Relays', icon: RadioTower, href: '/relays' },
-  { label: 'Test PCs', icon: MonitorSmartphone, href: '/test-pcs' },
+  { label: 'Workstations', icon: MonitorSmartphone, href: '/workstations' },
   { label: 'Analytics', icon: BarChart2, href: '/analytics' },
 ]
 

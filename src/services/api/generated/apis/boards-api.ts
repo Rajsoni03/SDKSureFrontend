@@ -124,11 +124,11 @@ export const BoardsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [search] A search term.
          * @param {string} [status] 
          * @param {string} [testFarm] 
-         * @param {string} [testPcId] 
+         * @param {string} [workstationId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        boardsList: async (capabilities?: Array<string>, isAlive?: boolean, isLocked?: boolean, name?: string, ordering?: string, page?: number, platform?: string, project?: string, relayId?: string, search?: string, status?: string, testFarm?: string, testPcId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        boardsList: async (capabilities?: Array<string>, isAlive?: boolean, isLocked?: boolean, name?: string, ordering?: string, page?: number, platform?: string, project?: string, relayId?: string, search?: string, status?: string, testFarm?: string, workstationId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boards/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -195,8 +195,8 @@ export const BoardsApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['test_farm'] = testFarm;
             }
 
-            if (testPcId !== undefined) {
-                localVarQueryParameter['test_pc_id'] = testPcId;
+            if (workstationId !== undefined) {
+                localVarQueryParameter['workstation_id'] = workstationId;
             }
 
             localVarHeaderParameter['Accept'] = 'application/json';
@@ -421,12 +421,12 @@ export const BoardsApiFp = function(configuration?: Configuration) {
          * @param {string} [search] A search term.
          * @param {string} [status] 
          * @param {string} [testFarm] 
-         * @param {string} [testPcId] 
+         * @param {string} [workstationId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async boardsList(capabilities?: Array<string>, isAlive?: boolean, isLocked?: boolean, name?: string, ordering?: string, page?: number, platform?: string, project?: string, relayId?: string, search?: string, status?: string, testFarm?: string, testPcId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedBoardList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.boardsList(capabilities, isAlive, isLocked, name, ordering, page, platform, project, relayId, search, status, testFarm, testPcId, options);
+        async boardsList(capabilities?: Array<string>, isAlive?: boolean, isLocked?: boolean, name?: string, ordering?: string, page?: number, platform?: string, project?: string, relayId?: string, search?: string, status?: string, testFarm?: string, workstationId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedBoardList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.boardsList(capabilities, isAlive, isLocked, name, ordering, page, platform, project, relayId, search, status, testFarm, workstationId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['BoardsApi.boardsList']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -515,7 +515,7 @@ export const BoardsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         boardsList(requestParameters: BoardsApiBoardsListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedBoardList> {
-            return localVarFp.boardsList(requestParameters.capabilities, requestParameters.isAlive, requestParameters.isLocked, requestParameters.name, requestParameters.ordering, requestParameters.page, requestParameters.platform, requestParameters.project, requestParameters.relayId, requestParameters.search, requestParameters.status, requestParameters.testFarm, requestParameters.testPcId, options).then((request) => request(axios, basePath));
+            return localVarFp.boardsList(requestParameters.capabilities, requestParameters.isAlive, requestParameters.isLocked, requestParameters.name, requestParameters.ordering, requestParameters.page, requestParameters.platform, requestParameters.project, requestParameters.relayId, requestParameters.search, requestParameters.status, requestParameters.testFarm, requestParameters.workstationId, options).then((request) => request(axios, basePath));
         },
         /**
          * CRUD operations for boards.
@@ -613,7 +613,7 @@ export interface BoardsApiBoardsListRequest {
 
     readonly testFarm?: string
 
-    readonly testPcId?: string
+    readonly workstationId?: string
 }
 
 /**
@@ -691,7 +691,7 @@ export class BoardsApi extends BaseAPI {
      * @throws {RequiredError}
      */
     public boardsList(requestParameters: BoardsApiBoardsListRequest = {}, options?: RawAxiosRequestConfig) {
-        return BoardsApiFp(this.configuration).boardsList(requestParameters.capabilities, requestParameters.isAlive, requestParameters.isLocked, requestParameters.name, requestParameters.ordering, requestParameters.page, requestParameters.platform, requestParameters.project, requestParameters.relayId, requestParameters.search, requestParameters.status, requestParameters.testFarm, requestParameters.testPcId, options).then((request) => request(this.axios, this.basePath));
+        return BoardsApiFp(this.configuration).boardsList(requestParameters.capabilities, requestParameters.isAlive, requestParameters.isLocked, requestParameters.name, requestParameters.ordering, requestParameters.page, requestParameters.platform, requestParameters.project, requestParameters.relayId, requestParameters.search, requestParameters.status, requestParameters.testFarm, requestParameters.workstationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

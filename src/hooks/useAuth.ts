@@ -14,7 +14,7 @@ export function useAuth() {
         onSuccess: async (res) => {
           const { access, refresh, ...user } = res.data
           store.setTokens({ access, refresh })
-          const hasUserShape = (user as any)?.id || (user as any)?.email
+          const hasUserShape = (user as any)?.id || (user as any)?.username
           store.setUser(hasUserShape ? (user as any) : null)
           try {
             const me = await authService.me()

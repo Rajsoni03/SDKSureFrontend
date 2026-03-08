@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
-import type { TestPC } from '@/services/api/generated/models/test-pc'
+import type { Workstation } from '@/services/api/generated/models/workstation'
 import { OsVersionEnum } from '@/services/api/generated/models/os-version-enum'
-import { TestPCStatusEnum } from '@/services/api/generated/models/test-pcstatus-enum'
-import { testPcsService } from '@/services/testPcs'
+import { WorkstationstatusEnum } from '@/services/api/generated/models/workstationstatus-enum'
+import { workstationsService } from '@/services/workstations'
 import { apiCall } from '@/lib/apiHandler'
 import { Button } from '../ui/button'
 
@@ -11,14 +11,14 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   onSaved?: () => void
-  editingPc?: TestPC | null
+  editingPc?: Workstation | null
 }
 
-export function TestPcFormModal({ isOpen, onClose, onSaved, editingPc }: Props) {
+export function WorkstationFormModal({ isOpen, onClose, onSaved, editingPc }: Props) {
   const [hostname, setHostname] = useState('')
   const [ip, setIp] = useState('')
   const [domain, setDomain] = useState('')
-  const [status, setStatus] = useState<TestPCStatusEnum | ''>('')
+  const [status, setStatus] = useState<WorkstationstatusEnum | ''>('')
   const [osVersion, setOsVersion] = useState<OsVersionEnum | ''>('')
   const [disk, setDisk] = useState('')
   const [location, setLocation] = useState('')
@@ -57,28 +57,28 @@ export function TestPcFormModal({ isOpen, onClose, onSaved, editingPc }: Props) 
     await apiCall(
       () =>
         isEditing && editingPc
-          ? testPcsService.update(editingPc.id, {
+          ? workstationsService.update(editingPc.id, {
               hostname,
               ip_address: ip,
               domain_name: domain || undefined,
-              status: status || TestPCStatusEnum.ONLINE,
+              status: status || WorkstationstatusEnum.ONLINE,
               os_version: osVersion || OsVersionEnum.ubuntu_22_04,
               disk_mountpoint: disk || undefined,
               location: location || undefined,
               comment: comment || undefined,
             })
-          : testPcsService.create({
+          : workstationsService.create({
               hostname,
               ip_address: ip,
               domain_name: domain || undefined,
-              status: status || TestPCStatusEnum.ONLINE,
+              status: status || WorkstationstatusEnum.ONLINE,
               os_version: osVersion || OsVersionEnum.ubuntu_22_04,
               disk_mountpoint: disk || undefined,
               location: location || undefined,
               comment: comment || undefined,
             }),
       {
-        successMessage: isEditing ? 'Test PC updated' : 'Test PC created',
+        successMessage: isEditing ? 'Workstation updated' : 'Workstation created',
         errorMessage: 'Failed to save test PC',
       },
     )
@@ -98,7 +98,7 @@ export function TestPcFormModal({ isOpen, onClose, onSaved, editingPc }: Props) 
           <X className="h-4 w-4" />
         </button>
         <div className="space-y-1">
-          <h3 className="text-xl font-semibold theme-text">{isEditing ? 'Edit Test PC' : 'Add Test PC'}</h3>
+          <h3 className="text-xl font-semibold theme-text">{isEditing ? 'Edit Workstation' : 'Add Workstation'}</h3>
           <p className="text-sm theme-muted">Manage test PCs used for running tests.</p>
         </div>
 
@@ -136,10 +136,10 @@ export function TestPcFormModal({ isOpen, onClose, onSaved, editingPc }: Props) 
             <Field label="Status">
               <select
                 value={status}
-                onChange={(e) => setStatus(e.target.value as TestPCStatusEnum)}
+                onChange={(e) => setStatus(e.target.value as WorkstationstatusEnum)}
                 className="w-full rounded-lg border theme-border theme-panel-soft px-3 py-2 text-sm theme-text focus:outline-none"
               >
-                {Object.values(TestPCStatusEnum).map((s) => (
+                {Object.values(WorkstationstatusEnum).map((s) => (
                   <option key={s} value={s}>
                     {s}
                   </option>

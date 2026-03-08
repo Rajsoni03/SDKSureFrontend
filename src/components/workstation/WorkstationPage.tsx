@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Search } from 'lucide-react'
 
-import { useTestPcs } from '@/hooks/useTestPcs'
-import { TestPcCard } from './TestPcCard'
-import { TestPcFormModal } from './TestPcFormModal'
+import { useWorkstations } from '@/hooks/useWorkstations'
+import { WorkstationCard } from './WorkstationCard'
+import { WorkstationFormModal } from './WorkstationFormModal'
 import { Button } from '../ui/button'
 import { apiCall } from '@/lib/apiHandler'
 
-export function TestPcsPage() {
+export function WorkstationsPage() {
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState<string>('')
   const [page, setPage] = useState(1)
@@ -24,7 +24,7 @@ export function TestPcsPage() {
     [search, status, page],
   )
 
-  const { data, isLoading, isError, refetch, isFetching } = useTestPcs(filters)
+  const { data, isLoading, isError, refetch, isFetching } = useWorkstations(filters)
   const pcs = data?.results ?? []
 
   return (
@@ -32,10 +32,10 @@ export function TestPcsPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm uppercase tracking-wide text-emerald-300">Infrastructure</p>
-          <h2 className="text-2xl font-semibold theme-text">Test PCs</h2>
+          <h2 className="text-2xl font-semibold theme-text">Workstations</h2>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Button onClick={() => { setEditing(null); setShowModal(true) }}>Add Test PC</Button>
+          <Button onClick={() => { setEditing(null); setShowModal(true) }}>Add Workstation</Button>
           <Button
             variant="secondary"
             onClick={() => apiCall(() => refetch(), { errorMessage: 'Failed to refresh test PCs' })}
@@ -98,7 +98,7 @@ export function TestPcsPage() {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {pcs.map((pc) => (
-              <TestPcCard
+              <WorkstationCard
                 key={pc.id}
                 pc={pc}
                 onEdit={(p) => {
@@ -111,7 +111,7 @@ export function TestPcsPage() {
         )}
       </div>
 
-      <TestPcFormModal
+      <WorkstationFormModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onSaved={() => refetch()}

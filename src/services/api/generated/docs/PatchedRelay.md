@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **status** | [**RelayStatusEnum**](RelayStatusEnum.md) | Relay status  * &#x60;ACTIVE&#x60; - Active * &#x60;INACTIVE&#x60; - Inactive * &#x60;MAINTENANCE&#x60; - Maintenance * &#x60;FAULT&#x60; - Fault | [optional] [default to undefined]
 **location** | **string** | Physical location (e.g., Rack A, Shelf 2) | [optional] [default to undefined]
 **ip_address** | **string** | IP address of the relay | [optional] [default to undefined]
-**mac_address** | **string** | MAC address in format XX:XX:XX:XX:XX:XX | [optional] [default to undefined]
 **port_count** | **number** | Number of ports on this relay | [optional] [default to undefined]
 **created_at** | **string** |  | [optional] [readonly] [default to undefined]
 **updated_at** | **string** |  | [optional] [readonly] [default to undefined]
@@ -30,7 +29,6 @@ const instance: PatchedRelay = {
     status,
     location,
     ip_address,
-    mac_address,
     port_count,
     created_at,
     updated_at,

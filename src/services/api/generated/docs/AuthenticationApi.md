@@ -17,7 +17,7 @@ All URIs are relative to *http://localhost:8000*
 # **authLoginCreate**
 > TokenObtainPair authLoginCreate(tokenObtainPair)
 
-JWT login endpoint (email/username + password).
+JWT login endpoint (username + password).
 
 ### Example
 
