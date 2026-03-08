@@ -1,4 +1,4 @@
-import { Cpu, Edit2, Globe2, HardDrive, Info, MonitorSmartphone, Plug, Shield, Timer } from 'lucide-react'
+import { Cpu, Edit2, Globe2, HardDrive, MonitorSmartphone, Plug, Shield, Timer } from 'lucide-react'
 import type { Board } from '@/services/api/generated/models/board'
 import { BoardStatusChip } from './BoardStatusChip'
 import { cn } from '@/lib/utils'
@@ -36,20 +36,37 @@ export function BoardCard({ board, onEdit }: Props) {
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-sm">
-          <InfoRow label="Workstation" value={board.workstation?.hostname ?? board.workstation_id ?? '—'} /> 
-
-          {/* <Info
+          <Info
             label="Workstation"
             value={board.workstation?.hostname ?? board.workstation_id ?? '—'}
             icon={<MonitorSmartphone className="h-4 w-4 text-emerald-300" />}
-          /> */}
-
-          <InfoRow label="Test farm" value={board.test_farm ?? '—'} />
-          <InfoRow label="SDK version" value={board.sdk_version ?? '—'} />
-          {/* <InfoRow label="Execution engine" value={board.execution_engine ?? '—'} /> */}
+          /> 
+          <Info
+            label="IP Address"
+            value={board.board_ip ?? '—'}
+            icon={<Globe2 className="h-4 w-4 text-emerald-300" />}
+          />
+          <Info
+            label="Relay"
+            value={
+              (board.relay
+                ? `${board.relay.relay_name} - #${board.relay_number ?? '—'}`
+                : board.relay_id) ?? '—'
+            }
+            icon={<Plug className="h-4 w-4 text-emerald-300" />}
+          />
+          <Info
+            label="SDK Version"
+            value={board.sdk_version ?? '—'}
+            icon={<Shield className="h-4 w-4 text-emerald-300" />}
+          />
         </div>
 
         <div className="flex flex-wrap items-center gap-2 text-xs theme-muted">
+          <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
+            <Cpu className="h-3.5 w-3.5 text-emerald-300" />
+            Test farm: {board.test_farm ?? '—'}
+          </span>
           <span className="inline-flex items-center gap-2 rounded-lg border theme-border px-2 py-1">
             <HardDrive className="h-3.5 w-3.5 text-emerald-300" />
             {capCount} capabilities
@@ -57,18 +74,6 @@ export function BoardCard({ board, onEdit }: Props) {
           <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
             <Timer className="h-3.5 w-3.5 text-emerald-300" />
             Last heartbeat: {board.last_heartbeat_at ? new Date(board.last_heartbeat_at).toLocaleString() : '—'}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
-            <Cpu className="h-3.5 w-3.5 text-emerald-300" />
-            Workstation: {board.workstation?.hostname ?? board.workstation_id ?? '—'}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
-            <Globe2 className="h-3.5 w-3.5 text-emerald-300" />
-            IP: {board.board_ip ?? '—'}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
-            <Plug className="h-3.5 w-3.5 text-emerald-300" />
-            Relay: {board.relay?.relay_name ?? board.relay_id ?? '—'}#{board.relay_number ?? '—'}
           </span>
           <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
             <Shield className="h-3.5 w-3.5 text-emerald-300" />
@@ -92,22 +97,22 @@ function InfoRow({ label, value }: { label: string; value: string | number }) {
 }
 
 
-// function Info({
-//   label,
-//   value,
-//   icon,
-// }: {
-//   label: string
-//   value: string | number | null
-//   icon: React.ReactNode
-// }) {
-//   return (
-//     <div className="flex items-center gap-2 rounded-lg border theme-border bg-black/5 px-3 py-2">
-//       {icon}
-//       <div className="flex flex-col">
-//         <span className="text-xs theme-muted">{label}</span>
-//         <span className="text-sm font-semibold theme-text">{value ?? '—'}</span>
-//       </div>
-//     </div>
-//   )
-// }
+function Info({
+  label,
+  value,
+  icon,
+}: {
+  label: string
+  value: string | number | null
+  icon: React.ReactNode
+}) {
+  return (
+    <div className="flex items-center gap-2 rounded-lg border theme-border bg-black/5 px-3 py-2">
+      {icon}
+      <div className="flex flex-col">
+        <span className="text-xs theme-muted">{label}</span>
+        <span className="text-sm font-semibold theme-text">{value ?? '—'}</span>
+      </div>
+    </div>
+  )
+}

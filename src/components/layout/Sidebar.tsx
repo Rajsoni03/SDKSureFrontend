@@ -9,6 +9,7 @@ import {
   Settings,
   Users,
   MonitorSmartphone,
+  Plug,
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '@/lib/utils'
@@ -25,7 +26,7 @@ const navItems = [
   { label: 'Configs', icon: Settings, href: '/configs' },
   { label: 'Labels', icon: BarChart2, href: '/labels' },
   { label: 'Capabilities', icon: Activity, href: '/capabilities' },
-  { label: 'Relays', icon: RadioTower, href: '/relays' },
+  { label: 'Relays', icon: Plug, href: '/relays' },
   { label: 'Workstations', icon: MonitorSmartphone, href: '/workstations' },
   { label: 'Analytics', icon: BarChart2, href: '/analytics' },
 ]
