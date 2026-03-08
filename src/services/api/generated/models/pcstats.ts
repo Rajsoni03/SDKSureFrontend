@@ -20,9 +20,9 @@ import type { PCStatsStatusEnum } from './pcstats-status-enum';
 export interface PCStats {
     'id': string;
     /**
-     * Reference to the TestPC
+     * Reference to the Workstation
      */
-    'test_pc': string;
+    'workstation': string;
     /**
      * Overall health  * `HEALTHY` - Healthy * `WARNING` - Warning * `CRITICAL` - Critical * `UNKNOWN` - Unknown
      */

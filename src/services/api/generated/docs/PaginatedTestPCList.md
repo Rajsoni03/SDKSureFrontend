@@ -1,4 +1,4 @@
-# PaginatedTestPCList
+# PaginatedWorkstationList
 
 
 ## Properties
@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **count** | **number** |  | [default to undefined]
 **next** | **string** |  | [optional] [default to undefined]
 **previous** | **string** |  | [optional] [default to undefined]
-**results** | [**Array&lt;TestPC&gt;**](TestPC.md) |  | [default to undefined]
+**results** | [**Array&lt;Workstation&gt;**](Workstation.md) |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { PaginatedTestPCList } from './api';
+import { PaginatedWorkstationList } from './api';
 
-const instance: PaginatedTestPCList = {
+const instance: PaginatedWorkstationList = {
     count,
     next,
     previous,

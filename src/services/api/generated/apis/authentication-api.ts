@@ -37,7 +37,7 @@ import type { User } from '../models';
 export const AuthenticationApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * JWT login endpoint (email/username + password).
+         * JWT login endpoint (username + password).
          * @summary Login to obtain access and refresh tokens
          * @param {TokenObtainPair} tokenObtainPair 
          * @param {*} [options] Override http request option.
@@ -405,7 +405,7 @@ export const AuthenticationApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AuthenticationApiAxiosParamCreator(configuration)
     return {
         /**
-         * JWT login endpoint (email/username + password).
+         * JWT login endpoint (username + password).
          * @summary Login to obtain access and refresh tokens
          * @param {TokenObtainPair} tokenObtainPair 
          * @param {*} [options] Override http request option.
@@ -528,7 +528,7 @@ export const AuthenticationApiFactory = function (configuration?: Configuration,
     const localVarFp = AuthenticationApiFp(configuration)
     return {
         /**
-         * JWT login endpoint (email/username + password).
+         * JWT login endpoint (username + password).
          * @summary Login to obtain access and refresh tokens
          * @param {AuthenticationApiAuthLoginCreateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -703,7 +703,7 @@ export interface AuthenticationApiUsersUpdateRequest {
  */
 export class AuthenticationApi extends BaseAPI {
     /**
-     * JWT login endpoint (email/username + password).
+     * JWT login endpoint (username + password).
      * @summary Login to obtain access and refresh tokens
      * @param {AuthenticationApiAuthLoginCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

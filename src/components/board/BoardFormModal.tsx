@@ -8,7 +8,7 @@ import { DeviceTypeEnum } from '@/services/api/generated/models/device-type-enum
 import { TestFarmEnum } from '@/services/api/generated/models/test-farm-enum'
 import { Button } from '@/components/ui/button'
 import { useRelays } from '@/hooks/useRelays'
-import { useTestPcs } from '@/hooks/useTestPcs'
+import { useWorkstations } from '@/hooks/useWorkstations'
 import { SearchableSelect } from '@/components/ui/SearchableSelect'
 import { useCapabilities } from '@/hooks/useCapabilities'
 import { MultiSelect } from '@/components/ui/MultiSelect'
@@ -33,7 +33,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
   const [boardIp, setBoardIp] = useState('')
   const [relayId, setRelayId] = useState('')
   const [relayNumber, setRelayNumber] = useState<number | ''>('')
-  const [testPcId, setTestPcId] = useState('')
+  const [workstationId, setWorkstationId] = useState('')
   const [description, setDescription] = useState('')
   const [capabilityIds, setCapabilityIds] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
@@ -44,7 +44,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
     }),
     [],
   )
-  const testPcFilters = useMemo(
+  const workstationFilters = useMemo(
     () => ({
       ordering: 'hostname',
     }),
@@ -52,7 +52,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
   )
 
   const { data: relaysData, isLoading: relaysLoading } = useRelays(relayFilters)
-  const { data: testPcsData, isLoading: testPcsLoading } = useTestPcs(testPcFilters)
+  const { data: workstationsData, isLoading: workstationsLoading } = useWorkstations(workstationFilters)
   const { data: capabilitiesData } = useCapabilities({
     ordering: 'name',
     page: 1,
@@ -67,13 +67,13 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
     [relaysData],
   )
 
-  const testPcOptions = useMemo(
+  const workstationOptions = useMemo(
     () =>
-      (testPcsData?.results ?? []).map((pc) => ({
+      (workstationsData?.results ?? []).map((pc) => ({
         label: `${pc.hostname} (${pc.ip_address})`,
         value: pc.id,
       })),
-    [testPcsData],
+    [workstationsData],
   )
 
   const capabilityOptions = useMemo(
@@ -99,7 +99,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
       setBoardIp(editingBoard.board_ip ?? '')
       setRelayId(editingBoard.relay_id ?? '')
       setRelayNumber((editingBoard.relay_number as number) ?? '')
-      setTestPcId(editingBoard.test_pc_id ?? '')
+      setWorkstationId(editingBoard.workstation_id ?? '')
       setDescription(editingBoard.description ?? '')
       setCapabilityIds((editingBoard.capabilities ?? []).map((c) => c.id))
     } else {
@@ -114,7 +114,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
       setBoardIp('')
       setRelayId('')
       setRelayNumber('')
-      setTestPcId('')
+      setWorkstationId('')
       setDescription('')
       setCapabilityIds([])
     }
@@ -141,7 +141,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
               board_ip: boardIp || undefined,
               relay_id: relayId || undefined,
               relay_number: relayNumber === '' ? undefined : relayNumber,
-              test_pc_id: testPcId || undefined,
+              workstation_id: workstationId || undefined,
               description: description || undefined,
               capability_ids: capabilityIds,
               status: editingBoard.status,
@@ -168,7 +168,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
               board_ip: boardIp || undefined,
               relay_id: relayId || undefined,
               relay_number: relayNumber === '' ? undefined : relayNumber,
-              test_pc_id: testPcId || undefined,
+              workstation_id: workstationId || undefined,
               description: description || undefined,
               capability_ids: capabilityIds,
               status: BoardStatusEnum.IDLE,
@@ -191,7 +191,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
         setBoardIp('')
         setRelayId('')
         setRelayNumber('')
-        setTestPcId('')
+        setWorkstationId('')
         setDescription('')
         setCapabilityIds([])
       }
@@ -268,7 +268,7 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
             </Field>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-2 sm:grid-cols-2">
             <Field label="Device type">
               <select
                 value={deviceType}
@@ -296,23 +296,15 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
                 ))}
               </select>
             </Field>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
             <Field label="SDK version">
               <input
                 value={sdkVersion}
                 onChange={(e) => setSdkVersion(e.target.value)}
                 className="w-full rounded-lg border theme-border bg-panel-soft px-3 py-2 text-sm theme-text focus:outline-none"
                 placeholder="e.g. 9.1.0"
-              />
-            </Field>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            <Field label="Execution engine">
-              <input
-                value={executionEngine}
-                onChange={(e) => setExecutionEngine(e.target.value)}
-                className="w-full rounded-lg border theme-border bg-panel-soft px-3 py-2 text-sm theme-text focus:outline-none"
-                placeholder="pytest, robot, etc."
               />
             </Field>
             <Field label="Board IP">
@@ -351,14 +343,14 @@ export function BoardFormModal({ isOpen, onClose, onSaved, editingBoard }: Props
                 placeholder="1"
               />
             </Field>
-            <Field label="Test PC">
+            <Field label="Workstation">
               <SearchableSelect
-                options={testPcOptions}
-                value={testPcId}
+                options={workstationOptions}
+                value={workstationId}
                 placeholder="Select test PC"
-                onChange={(val) => setTestPcId(val ?? '')}
+                onChange={(val) => setWorkstationId(val ?? '')}
               />
-              {testPcsLoading && <p className="text-xs theme-muted mt-1">Loading test PCs…</p>}
+              {workstationsLoading && <p className="text-xs theme-muted mt-1">Loading test PCs…</p>}
             </Field>
           </div>
 

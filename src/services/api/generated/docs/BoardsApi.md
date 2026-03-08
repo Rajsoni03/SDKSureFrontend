@@ -143,7 +143,7 @@ let relayId: string; // (optional) (default to undefined)
 let search: string; //A search term. (optional) (default to undefined)
 let status: string; // (optional) (default to undefined)
 let testFarm: string; // (optional) (default to undefined)
-let testPcId: string; // (optional) (default to undefined)
+let workstationId: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.boardsList(
     capabilities,
@@ -158,7 +158,7 @@ const { status, data } = await apiInstance.boardsList(
     search,
     status,
     testFarm,
-    testPcId
+    workstationId
 );
 ```
 
@@ -178,7 +178,7 @@ const { status, data } = await apiInstance.boardsList(
 | **search** | [**string**] | A search term. | (optional) defaults to undefined|
 | **status** | [**string**] |  | (optional) defaults to undefined|
 | **testFarm** | [**string**] |  | (optional) defaults to undefined|
-| **testPcId** | [**string**] |  | (optional) defaults to undefined|
+| **workstationId** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type

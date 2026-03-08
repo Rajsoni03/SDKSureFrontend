@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **string** |  | [readonly] [default to undefined]
-**test_pc** | **string** | Reference to the TestPC | [default to undefined]
+**workstation** | **string** | Reference to the Workstation | [default to undefined]
 **status** | [**PCStatsStatusEnum**](PCStatsStatusEnum.md) | Overall health  * &#x60;HEALTHY&#x60; - Healthy * &#x60;WARNING&#x60; - Warning * &#x60;CRITICAL&#x60; - Critical * &#x60;UNKNOWN&#x60; - Unknown | [optional] [default to undefined]
 **memory_total_gb** | **number** | Total memory in GB | [default to undefined]
 **memory_used_gb** | **number** | Used memory in GB | [default to undefined]
@@ -32,7 +32,7 @@ import { PCStats } from './api';
 
 const instance: PCStats = {
     id,
-    test_pc,
+    workstation,
     status,
     memory_total_gb,
     memory_used_gb,

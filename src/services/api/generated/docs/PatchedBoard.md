@@ -22,8 +22,8 @@ Name | Type | Description | Notes
 **relay_id** | **string** |  | [optional] [default to undefined]
 **relay_number** | **number** | Port number on the relay | [optional] [default to undefined]
 **relay** | [**Relay**](Relay.md) |  | [optional] [readonly] [default to undefined]
-**test_pc_id** | **string** |  | [optional] [default to undefined]
-**test_pc** | [**TestPC**](TestPC.md) |  | [optional] [readonly] [default to undefined]
+**workstation_id** | **string** |  | [optional] [default to undefined]
+**workstation** | [**Workstation**](Workstation.md) |  | [optional] [readonly] [default to undefined]
 **location** | **string** | Physical location | [optional] [default to undefined]
 **last_sdk_update_at** | **string** | Last SDK update timestamp | [optional] [default to undefined]
 **description** | **string** | Additional description | [optional] [default to undefined]
@@ -60,8 +60,8 @@ const instance: PatchedBoard = {
     relay_id,
     relay_number,
     relay,
-    test_pc_id,
-    test_pc,
+    workstation_id,
+    workstation,
     location,
     last_sdk_update_at,
     description,

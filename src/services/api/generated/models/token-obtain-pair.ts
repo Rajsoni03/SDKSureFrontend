@@ -15,7 +15,7 @@
 
 
 export interface TokenObtainPair {
-    'email': string;
+    'username': string;
     'password': string;
     'access': string;
     'refresh': string;

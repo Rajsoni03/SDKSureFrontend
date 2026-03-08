@@ -20,7 +20,6 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
   const [status, setStatus] = useState<RelayStatusEnum | ''>('')
   const [location, setLocation] = useState('')
   const [ipAddress, setIpAddress] = useState('')
-  const [macAddress, setMacAddress] = useState('')
   const [portCount, setPortCount] = useState<number | ''>('')
 
   const isEditing = !!editingRelay
@@ -32,7 +31,6 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
       setStatus(editingRelay.status ?? '')
       setLocation(editingRelay.location ?? '')
       setIpAddress(editingRelay.ip_address)
-      setMacAddress(editingRelay.mac_address)
       setPortCount(editingRelay.port_count ?? '')
     } else {
       setRelayName('')
@@ -40,7 +38,6 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
       setStatus('')
       setLocation('')
       setIpAddress('')
-      setMacAddress('')
       setPortCount('')
     }
   }, [editingRelay])
@@ -59,7 +56,6 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
               status: status || RelayStatusEnum.ACTIVE,
               location: location || undefined,
               ip_address: ipAddress,
-              mac_address: macAddress,
               port_count: portCount === '' ? undefined : portCount,
             })
           : relaysService.create({
@@ -68,7 +64,6 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
               status: status || RelayStatusEnum.ACTIVE,
               location: location || undefined,
               ip_address: ipAddress,
-              mac_address: macAddress,
               port_count: portCount === '' ? undefined : portCount,
             }),
       {
@@ -155,17 +150,6 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
                 placeholder="192.168.1.10"
               />
             </Field>
-            <Field label="MAC address">
-              <input
-                required
-                value={macAddress}
-                onChange={(e) => setMacAddress(e.target.value)}
-                className="w-full rounded-lg border theme-border theme-panel-soft px-3 py-2 text-sm theme-text focus:outline-none"
-                placeholder="AA:BB:CC:DD:EE:FF"
-              />
-            </Field>
-          </div>
-
           <Field label="Port count">
             <input
               value={portCount}
@@ -174,6 +158,8 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
               placeholder="8"
             />
           </Field>
+          </div>
+
 
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="ghost" onClick={onClose}>

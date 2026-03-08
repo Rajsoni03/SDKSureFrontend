@@ -18,14 +18,14 @@
  * * `ONLINE` - Online * `OFFLINE` - Offline * `MAINTENANCE` - Maintenance * `INITIALIZING` - Initializing
  */
 
-export const TestPCStatusEnum = {
+export const WorkstationstatusEnum = {
     ONLINE: 'ONLINE',
     OFFLINE: 'OFFLINE',
     MAINTENANCE: 'MAINTENANCE',
     INITIALIZING: 'INITIALIZING'
 } as const;
 
-export type TestPCStatusEnum = typeof TestPCStatusEnum[keyof typeof TestPCStatusEnum];
+export type WorkstationstatusEnum = typeof WorkstationstatusEnum[keyof typeof WorkstationstatusEnum];
 
 
 

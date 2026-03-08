@@ -20,7 +20,7 @@ export const boardsService = {
     search?: string
     status?: string
     testFarm?: string
-    testPcId?: string
+    workstationId?: string
   }) => boardsApi.boardsList(params ?? {}),
   retrieve: (id: string) => boardsApi.boardsRetrieve({ id }),
   create: (board: Partial<Board>) => boardsApi.boardsCreate({ board: board as any }),

@@ -1,4 +1,4 @@
-import { Cpu, Edit2, Globe2, HardDrive, Plug, Shield, Timer } from 'lucide-react'
+import { Cpu, Edit2, Globe2, HardDrive, Info, MonitorSmartphone, Plug, Shield, Timer } from 'lucide-react'
 import type { Board } from '@/services/api/generated/models/board'
 import { BoardStatusChip } from './BoardStatusChip'
 import { cn } from '@/lib/utils'
@@ -21,7 +21,7 @@ export function BoardCard({ board, onEdit }: Props) {
             <h3 className="text-lg font-semibold theme-text">{board.name}</h3>
             <p className="text-xs theme-muted">Serial: {board.hardware_serial_number}</p>
             <p className="text-xs theme-muted">
-              Platform: {board.platform ?? '—'} · Project: {board.project ?? '—'}
+              Platform: {board.platform ?? '—'}-{board.device_type?.toLowerCase() ?? '—'} · Project: {board.project ?? '—'}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -36,10 +36,17 @@ export function BoardCard({ board, onEdit }: Props) {
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-sm">
-          <InfoRow label="Device type" value={board.device_type ?? '—'} />
+          <InfoRow label="Workstation" value={board.workstation?.hostname ?? board.workstation_id ?? '—'} /> 
+
+          {/* <Info
+            label="Workstation"
+            value={board.workstation?.hostname ?? board.workstation_id ?? '—'}
+            icon={<MonitorSmartphone className="h-4 w-4 text-emerald-300" />}
+          /> */}
+
           <InfoRow label="Test farm" value={board.test_farm ?? '—'} />
           <InfoRow label="SDK version" value={board.sdk_version ?? '—'} />
-          <InfoRow label="Execution engine" value={board.execution_engine ?? '—'} />
+          {/* <InfoRow label="Execution engine" value={board.execution_engine ?? '—'} /> */}
         </div>
 
         <div className="flex flex-wrap items-center gap-2 text-xs theme-muted">
@@ -53,7 +60,7 @@ export function BoardCard({ board, onEdit }: Props) {
           </span>
           <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
             <Cpu className="h-3.5 w-3.5 text-emerald-300" />
-            Test PC: {board.test_pc?.hostname ?? board.test_pc_id ?? '—'}
+            Workstation: {board.workstation?.hostname ?? board.workstation_id ?? '—'}
           </span>
           <span className="inline-flex items-center gap-1 rounded-lg border theme-border px-2 py-1">
             <Globe2 className="h-3.5 w-3.5 text-emerald-300" />
@@ -83,3 +90,24 @@ function InfoRow({ label, value }: { label: string; value: string | number }) {
     </div>
   )
 }
+
+
+// function Info({
+//   label,
+//   value,
+//   icon,
+// }: {
+//   label: string
+//   value: string | number | null
+//   icon: React.ReactNode
+// }) {
+//   return (
+//     <div className="flex items-center gap-2 rounded-lg border theme-border bg-black/5 px-3 py-2">
+//       {icon}
+//       <div className="flex flex-col">
+//         <span className="text-xs theme-muted">{label}</span>
+//         <span className="text-sm font-semibold theme-text">{value ?? '—'}</span>
+//       </div>
+//     </div>
+//   )
+// }

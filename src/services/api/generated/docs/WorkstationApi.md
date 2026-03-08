@@ -1,18 +1,18 @@
-# TestPcsApi
+# WorkstationsApi
 
 All URIs are relative to *http://localhost:8000*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**testPcsCreate**](#testpcscreate) | **POST** /api/v1/test-pcs/ | |
-|[**testPcsDestroy**](#testpcsdestroy) | **DELETE** /api/v1/test-pcs/{id}/ | |
-|[**testPcsList**](#testpcslist) | **GET** /api/v1/test-pcs/ | |
-|[**testPcsPartialUpdate**](#testpcspartialupdate) | **PATCH** /api/v1/test-pcs/{id}/ | |
-|[**testPcsRetrieve**](#testpcsretrieve) | **GET** /api/v1/test-pcs/{id}/ | |
-|[**testPcsUpdate**](#testpcsupdate) | **PUT** /api/v1/test-pcs/{id}/ | |
+|[**workstationsCreate**](#workstationscreate) | **POST** /api/v1/workstations/ | |
+|[**workstationsDestroy**](#workstationsdestroy) | **DELETE** /api/v1/workstations/{id}/ | |
+|[**workstationsList**](#workstationslist) | **GET** /api/v1/workstations/ | |
+|[**workstationsPartialUpdate**](#workstationspartialupdate) | **PATCH** /api/v1/workstations/{id}/ | |
+|[**workstationsRetrieve**](#workstationsretrieve) | **GET** /api/v1/workstations/{id}/ | |
+|[**workstationsUpdate**](#workstationsupdate) | **PUT** /api/v1/workstations/{id}/ | |
 
-# **testPcsCreate**
-> TestPC testPcsCreate(testPC)
+# **workstationsCreate**
+> Workstation workstationsCreate(workstation)
 
 CRUD operations for test PCs.
 
@@ -20,18 +20,18 @@ CRUD operations for test PCs.
 
 ```typescript
 import {
-    TestPcsApi,
+    WorkstationsApi,
     Configuration,
-    TestPC
+    Workstation
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new TestPcsApi(configuration);
+const apiInstance = new WorkstationsApi(configuration);
 
-let testPC: TestPC; //
+let workstation: Workstation; //
 
-const { status, data } = await apiInstance.testPcsCreate(
-    testPC
+const { status, data } = await apiInstance.workstationsCreate(
+    workstation
 );
 ```
 
@@ -39,12 +39,12 @@ const { status, data } = await apiInstance.testPcsCreate(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **testPC** | **TestPC**|  | |
+| **workstation** | **Workstation**|  | |
 
 
 ### Return type
 
-**TestPC**
+**Workstation**
 
 ### Authorization
 
@@ -63,8 +63,8 @@ const { status, data } = await apiInstance.testPcsCreate(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **testPcsDestroy**
-> testPcsDestroy()
+# **workstationsDestroy**
+> workstationsDestroy()
 
 CRUD operations for test PCs.
 
@@ -72,16 +72,16 @@ CRUD operations for test PCs.
 
 ```typescript
 import {
-    TestPcsApi,
+    WorkstationsApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new TestPcsApi(configuration);
+const apiInstance = new WorkstationsApi(configuration);
 
-let id: string; //A UUID string identifying this Test PC. (default to undefined)
+let id: string; //A UUID string identifying this Workstation. (default to undefined)
 
-const { status, data } = await apiInstance.testPcsDestroy(
+const { status, data } = await apiInstance.workstationsDestroy(
     id
 );
 ```
@@ -90,7 +90,7 @@ const { status, data } = await apiInstance.testPcsDestroy(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | A UUID string identifying this Test PC. | defaults to undefined|
+| **id** | [**string**] | A UUID string identifying this Workstation. | defaults to undefined|
 
 
 ### Return type
@@ -114,8 +114,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **testPcsList**
-> PaginatedTestPCList testPcsList()
+# **workstationsList**
+> PaginatedWorkstationList workstationsList()
 
 CRUD operations for test PCs.
 
@@ -123,18 +123,18 @@ CRUD operations for test PCs.
 
 ```typescript
 import {
-    TestPcsApi,
+    WorkstationsApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new TestPcsApi(configuration);
+const apiInstance = new WorkstationsApi(configuration);
 
 let ordering: string; //Which field to use when ordering the results. (optional) (default to undefined)
 let page: number; //A page number within the paginated result set. (optional) (default to undefined)
 let search: string; //A search term. (optional) (default to undefined)
 
-const { status, data } = await apiInstance.testPcsList(
+const { status, data } = await apiInstance.workstationsList(
     ordering,
     page,
     search
@@ -152,7 +152,7 @@ const { status, data } = await apiInstance.testPcsList(
 
 ### Return type
 
-**PaginatedTestPCList**
+**PaginatedWorkstationList**
 
 ### Authorization
 
@@ -171,8 +171,8 @@ const { status, data } = await apiInstance.testPcsList(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **testPcsPartialUpdate**
-> TestPC testPcsPartialUpdate()
+# **workstationsPartialUpdate**
+> Workstation workstationsPartialUpdate()
 
 CRUD operations for test PCs.
 
@@ -180,20 +180,20 @@ CRUD operations for test PCs.
 
 ```typescript
 import {
-    TestPcsApi,
+    WorkstationsApi,
     Configuration,
-    PatchedTestPC
+    PatchedWorkstation
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new TestPcsApi(configuration);
+const apiInstance = new WorkstationsApi(configuration);
 
-let id: string; //A UUID string identifying this Test PC. (default to undefined)
-let patchedTestPC: PatchedTestPC; // (optional)
+let id: string; //A UUID string identifying this Workstation. (default to undefined)
+let patchedWorkstation: PatchedWorkstation; // (optional)
 
-const { status, data } = await apiInstance.testPcsPartialUpdate(
+const { status, data } = await apiInstance.workstationsPartialUpdate(
     id,
-    patchedTestPC
+    patchedWorkstation
 );
 ```
 
@@ -201,13 +201,13 @@ const { status, data } = await apiInstance.testPcsPartialUpdate(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patchedTestPC** | **PatchedTestPC**|  | |
-| **id** | [**string**] | A UUID string identifying this Test PC. | defaults to undefined|
+| **patchedWorkstation** | **PatchedWorkstation**|  | |
+| **id** | [**string**] | A UUID string identifying this Workstation. | defaults to undefined|
 
 
 ### Return type
 
-**TestPC**
+**Workstation**
 
 ### Authorization
 
@@ -226,8 +226,8 @@ const { status, data } = await apiInstance.testPcsPartialUpdate(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **testPcsRetrieve**
-> TestPC testPcsRetrieve()
+# **workstationsRetrieve**
+> Workstation workstationsRetrieve()
 
 CRUD operations for test PCs.
 
@@ -235,16 +235,16 @@ CRUD operations for test PCs.
 
 ```typescript
 import {
-    TestPcsApi,
+    WorkstationsApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new TestPcsApi(configuration);
+const apiInstance = new WorkstationsApi(configuration);
 
-let id: string; //A UUID string identifying this Test PC. (default to undefined)
+let id: string; //A UUID string identifying this Workstation. (default to undefined)
 
-const { status, data } = await apiInstance.testPcsRetrieve(
+const { status, data } = await apiInstance.workstationsRetrieve(
     id
 );
 ```
@@ -253,12 +253,12 @@ const { status, data } = await apiInstance.testPcsRetrieve(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | A UUID string identifying this Test PC. | defaults to undefined|
+| **id** | [**string**] | A UUID string identifying this Workstation. | defaults to undefined|
 
 
 ### Return type
 
-**TestPC**
+**Workstation**
 
 ### Authorization
 
@@ -277,8 +277,8 @@ const { status, data } = await apiInstance.testPcsRetrieve(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **testPcsUpdate**
-> TestPC testPcsUpdate(testPC)
+# **workstationsUpdate**
+> Workstation workstationsUpdate(workstation)
 
 CRUD operations for test PCs.
 
@@ -286,20 +286,20 @@ CRUD operations for test PCs.
 
 ```typescript
 import {
-    TestPcsApi,
+    WorkstationsApi,
     Configuration,
-    TestPC
+    Workstation
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new TestPcsApi(configuration);
+const apiInstance = new WorkstationsApi(configuration);
 
-let id: string; //A UUID string identifying this Test PC. (default to undefined)
-let testPC: TestPC; //
+let id: string; //A UUID string identifying this Workstation. (default to undefined)
+let workstation: Workstation; //
 
-const { status, data } = await apiInstance.testPcsUpdate(
+const { status, data } = await apiInstance.workstationsUpdate(
     id,
-    testPC
+    workstation
 );
 ```
 
@@ -307,13 +307,13 @@ const { status, data } = await apiInstance.testPcsUpdate(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **testPC** | **TestPC**|  | |
-| **id** | [**string**] | A UUID string identifying this Test PC. | defaults to undefined|
+| **workstation** | **Workstation**|  | |
+| **id** | [**string**] | A UUID string identifying this Workstation. | defaults to undefined|
 
 
 ### Return type
 
-**TestPC**
+**Workstation**
 
 ### Authorization
 

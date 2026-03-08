@@ -1,4 +1,4 @@
-# TestPC
+# Workstation
 
 
 ## Properties
@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **domain_name** | **string** | FQDN of the PC | [optional] [default to undefined]
 **auth_token** | **string** | Token used to authenticate with the PC | [optional] [default to undefined]
 **workarea** | **string** | Logical work area name/location | [optional] [default to undefined]
-**status** | [**TestPCStatusEnum**](TestPCStatusEnum.md) | PC status  * &#x60;ONLINE&#x60; - Online * &#x60;OFFLINE&#x60; - Offline * &#x60;MAINTENANCE&#x60; - Maintenance * &#x60;INITIALIZING&#x60; - Initializing | [optional] [default to undefined]
+**status** | [**WorkstationstatusEnum**](WorkstationstatusEnum.md) | PC status  * &#x60;ONLINE&#x60; - Online * &#x60;OFFLINE&#x60; - Offline * &#x60;MAINTENANCE&#x60; - Maintenance * &#x60;INITIALIZING&#x60; - Initializing | [optional] [default to undefined]
 **os_version** | [**OsVersionEnum**](OsVersionEnum.md) | Operating system version  * &#x60;ubuntu_18_04&#x60; - Ubuntu 18.04 LTS * &#x60;ubuntu_20_04&#x60; - Ubuntu 20.04 LTS * &#x60;ubuntu_22_04&#x60; - Ubuntu 22.04 LTS * &#x60;ubuntu_24_04&#x60; - Ubuntu 24.04 LTS * &#x60;centos_7&#x60; - CentOS 7 * &#x60;centos_8&#x60; - CentOS 8 * &#x60;centos_9&#x60; - CentOS 9 * &#x60;windows_10&#x60; - Windows 10 * &#x60;windows_11&#x60; - Windows 11 * &#x60;macos_ventura&#x60; - macOS Ventura * &#x60;macos_sonoma&#x60; - macOS Sonoma | [default to undefined]
 **disk_mountpoint** | **string** | Primary disk mount point | [optional] [default to undefined]
 **location** | **string** | Physical location in lab/datacenter/rack | [optional] [default to undefined]
@@ -25,9 +25,9 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TestPC } from './api';
+import { Workstation } from './api';
 
-const instance: TestPC = {
+const instance: Workstation = {
     id,
     hostname,
     ip_address,

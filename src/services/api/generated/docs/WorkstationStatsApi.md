@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost:8000*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**pcStatsList**](#pcstatslist) | **GET** /api/v1/pc-stats/ | |
-|[**pcStatsRetrieve**](#pcstatsretrieve) | **GET** /api/v1/pc-stats/{id}/ | |
+|[**pcStatsList**](#pcstatslist) | **GET** /api/v1/workstation-stats/ | |
+|[**pcStatsRetrieve**](#pcstatsretrieve) | **GET** /api/v1/workstation-stats/{id}/ | |
 
 # **pcStatsList**
 > PaginatedPCStatsList pcStatsList()

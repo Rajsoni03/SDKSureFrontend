@@ -33,7 +33,7 @@ import type { Relay } from './relay';
 import type { TestFarmEnum } from './test-farm-enum';
 // May contain unused imports in some cases
 // @ts-ignore
-import type { TestPC } from './test-pc';
+import type { Workstation } from './workstation';
 
 export interface PatchedBoard {
     'id'?: string;
@@ -95,8 +95,8 @@ export interface PatchedBoard {
      */
     'relay_number'?: number | null;
     'relay'?: Relay;
-    'test_pc_id'?: string | null;
-    'test_pc'?: TestPC;
+    'workstation_id'?: string | null;
+    'workstation'?: Workstation;
     /**
      * Physical location
      */

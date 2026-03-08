@@ -14,7 +14,7 @@ const modelLabels: Record<ModelTypeEnum, string> = {
 
 const statusLabels: Record<RelayStatusEnum, { label: string; className: string }> = {
   [RelayStatusEnum.ACTIVE]: { label: 'Active', className: 'bg-emerald-500/15 text-emerald-200' },
-  [RelayStatusEnum.INACTIVE]: { label: 'Inactive', className: 'bg-slate-500/15 text-slate-200' },
+  [RelayStatusEnum.INACTIVE]: { label: 'Inactive', className: 'bg-blue-500/15 text-blue-200' },
   [RelayStatusEnum.MAINTENANCE]: { label: 'Maintenance', className: 'bg-amber-500/15 text-amber-200' },
   [RelayStatusEnum.FAULT]: { label: 'Fault', className: 'bg-red-500/15 text-red-200' },
 }
@@ -45,8 +45,8 @@ export function RelayCard({ relay, onEdit }: Props) {
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-sm">
+          <Info label="Type" value={modelLabels[relay.model_type] ?? relay.model_type} icon={<Cpu className="h-4 w-4 text-emerald-300" />} />
           <Info label="IP" value={relay.ip_address} icon={<RadioTower className="h-4 w-4 text-emerald-300" />} />
-          <Info label="MAC" value={relay.mac_address} icon={<Cpu className="h-4 w-4 text-emerald-300" />} />
           <Info
             label="Ports"
             value={relay.port_count ?? '—'}

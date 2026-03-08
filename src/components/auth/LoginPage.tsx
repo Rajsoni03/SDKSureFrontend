@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth'
 
 export function LoginPage() {
   const { login, isLoggingIn, loginError } = useAuth()
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState<string | null>(null)
 
@@ -14,7 +14,7 @@ export function LoginPage() {
     e.preventDefault()
     setMessage(null)
     try {
-      await login({ email, password })
+      await login({ username, password })
       setMessage('Login successful. Redirecting...')
     } catch (error: any) {
       setMessage(error?.message ?? 'Login failed')
@@ -40,15 +40,15 @@ export function LoginPage() {
             <label className="block space-y-2 text-sm">
               <span className="flex items-center gap-2 theme-text">
                 <Mail className="h-4 w-4 text-emerald-300" />
-                Email
+                Username
               </span>
               <input
-                type="email"
+                type="text"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full rounded-lg border theme-border theme-panel-soft px-3 py-2 text-sm theme-text outline-none transition focus:border-emerald-400/60"
-                placeholder="admin@example.com"
+                placeholder="AID or XID"
               />
             </label>
 

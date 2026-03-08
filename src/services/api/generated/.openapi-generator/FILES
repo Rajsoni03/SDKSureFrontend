@@ -7,12 +7,12 @@ apis/capabilities-api.ts
 apis/dashboard-metrics-api.ts
 apis/dispatcher-api.ts
 apis/labels-api.ts
-apis/pc-stats-api.ts
+apis/workstation-stats-api.ts
 apis/relays-api.ts
 apis/schema-api.ts
 apis/system-configurations-api.ts
 apis/test-cases-api.ts
-apis/test-pcs-api.ts
+apis/workstations-api.ts
 apis/test-runs-api.ts
 apis/test-scenarios-api.ts
 apis/test-types-api.ts
@@ -43,7 +43,7 @@ docs/PaginatedPCStatsList.md
 docs/PaginatedRelayList.md
 docs/PaginatedSystemConfigurationList.md
 docs/PaginatedTestCaseList.md
-docs/PaginatedTestPCList.md
+docs/PaginatedWorkstationList.md
 docs/PaginatedTestRunList.md
 docs/PaginatedTestScenarioList.md
 docs/PaginatedTestTypeList.md
@@ -54,7 +54,7 @@ docs/PatchedLabel.md
 docs/PatchedRelay.md
 docs/PatchedSystemConfiguration.md
 docs/PatchedTestCase.md
-docs/PatchedTestPC.md
+docs/PatchedWorkstation.md
 docs/PatchedTestRun.md
 docs/PatchedTestScenario.md
 docs/PatchedTestType.md
@@ -72,9 +72,9 @@ docs/TestCase.md
 docs/TestCaseSummary.md
 docs/TestCasesApi.md
 docs/TestFarmEnum.md
-docs/TestPC.md
-docs/TestPCStatusEnum.md
-docs/TestPcsApi.md
+docs/Workstation.md
+docs/WorkstationstatusEnum.md
+docs/WorkstationsApi.md
 docs/TestResult.md
 docs/TestResultStatusEnum.md
 docs/TestRun.md
@@ -105,7 +105,7 @@ models/paginated-pcstats-list.ts
 models/paginated-relay-list.ts
 models/paginated-system-configuration-list.ts
 models/paginated-test-case-list.ts
-models/paginated-test-pclist.ts
+models/paginated-workstationlist.ts
 models/paginated-test-run-list.ts
 models/paginated-test-scenario-list.ts
 models/paginated-test-type-list.ts
@@ -116,7 +116,7 @@ models/patched-label.ts
 models/patched-relay.ts
 models/patched-system-configuration.ts
 models/patched-test-case.ts
-models/patched-test-pc.ts
+models/patched-workstation.ts
 models/patched-test-run.ts
 models/patched-test-scenario.ts
 models/patched-test-type.ts
@@ -131,8 +131,8 @@ models/system-configuration.ts
 models/test-case-summary.ts
 models/test-case.ts
 models/test-farm-enum.ts
-models/test-pc.ts
-models/test-pcstatus-enum.ts
+models/workstation.ts
+models/workstationstatus-enum.ts
 models/test-result-status-enum.ts
 models/test-result.ts
 models/test-run.ts

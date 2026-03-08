@@ -43,10 +43,6 @@ export interface Relay {
      */
     'ip_address': string;
     /**
-     * MAC address in format XX:XX:XX:XX:XX:XX
-     */
-    'mac_address': string;
-    /**
      * Number of ports on this relay
      */
     'port_count'?: number;
