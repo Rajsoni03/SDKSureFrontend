@@ -113,6 +113,12 @@ export function WorkstationsPage() {
                   })
                   refetch()
                 }}
+                onUpdate={async (id) => {
+                  await apiCall(() => workstationsService.updateAgent(id), {
+                    successMessage: `${pc.hostname}: SysConn update triggered`,
+                    errorMessage: `${pc.hostname}: SysConn update failed`,
+                  })
+                }}
               />
             ))}
           </div>

@@ -16,4 +16,8 @@ export const workstationsService = {
     apiClient.post<{ health: Record<string, string>; workstation: Workstation }>(
       `/api/v1/workstations/${id}/ping/`,
     ),
+  updateAgent: (id: string) =>
+    apiClient.post<{ detail: string; status_code: number }>(
+      `/api/v1/workstations/${id}/update-agent/`,
+    ),
 }

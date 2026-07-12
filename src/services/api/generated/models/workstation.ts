@@ -70,6 +70,12 @@ export interface Workstation {
     'last_heartbeat_at': string | null;
     'is_online': string;
     'is_available_for_testing': string;
+    'cpu_utilization'?: number | null;
+    'ram_utilization'?: number | null;
+    'disk_utilization'?: number | null;
+    'docker_container_count'?: number | null;
+    'sysconn_version'?: string | null;
+    'sysconn_commit'?: string | null;
 }
 
 
