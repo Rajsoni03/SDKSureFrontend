@@ -15,8 +15,8 @@ export default defineConfig({
     host: true,
     port: 3000, // This is the port which we will use in docker
     watch: {
-       usePolling: true
+      usePolling: true,
     },
-    allowedHosts: config.ALLOWED_HOSTS
+    allowedHosts: config.ALLOWED_HOSTS,
   }
 })

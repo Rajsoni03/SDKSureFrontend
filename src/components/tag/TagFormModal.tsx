@@ -14,6 +14,7 @@ interface Props {
 
 export function LabelFormModal({ isOpen, onClose, onSaved, editingLabel }: Props) {
   const [name, setName] = useState('')
+  const [saving, setSaving] = useState(false)
   const isEditing = !!editingLabel
 
   useEffect(() => {
@@ -28,18 +29,23 @@ export function LabelFormModal({ isOpen, onClose, onSaved, editingLabel }: Props
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await apiCall(
-      () =>
-        isEditing && editingLabel
-          ? labelsService.update(editingLabel.id, { name })
-          : labelsService.create({ name }),
-      {
-        successMessage: isEditing ? 'Label updated' : 'Label created',
-        errorMessage: 'Label save failed',
-      },
-    )
-    onSaved?.()
-    onClose()
+    setSaving(true)
+    try {
+      await apiCall(
+        () =>
+          isEditing && editingLabel
+            ? labelsService.update(editingLabel.id, { name })
+            : labelsService.create({ name }),
+        {
+          successMessage: isEditing ? 'Label updated' : 'Label created',
+          errorMessage: 'Label save failed',
+        },
+      )
+      onSaved?.()
+      onClose()
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -72,7 +78,7 @@ export function LabelFormModal({ isOpen, onClose, onSaved, editingLabel }: Props
             <Button type="button" variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? 'Update' : 'Create'}</Button>
+            <Button type="submit" disabled={saving}>{saving ? 'Saving...' : isEditing ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </div>

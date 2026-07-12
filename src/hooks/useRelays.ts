@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { relaysService } from '@/services/relays'
 
 export interface RelayFilters {
@@ -12,7 +12,7 @@ export function useRelays(filters: RelayFilters) {
   return useQuery({
     queryKey: ['relays', filters],
     queryFn: () => relaysService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

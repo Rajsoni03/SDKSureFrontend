@@ -1,7 +1,6 @@
 import { Cpu, Edit2, Globe2, HardDrive, MonitorSmartphone, Plug, Shield, Timer } from 'lucide-react'
 import type { Board } from '@/services/api/generated/models/board'
 import { BoardStatusChip } from './BoardStatusChip'
-import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
 
 interface Props {
@@ -84,18 +83,6 @@ export function BoardCard({ board, onEdit }: Props) {
     </div>
   )
 }
-
-function InfoRow({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="flex items-center justify-between rounded-lg border theme-border bg-black/5 px-3 py-2">
-      <span className="text-xs theme-muted">{label}</span>
-      <span className={cn('text-sm font-medium theme-text', typeof value === 'number' && 'tabular-nums')}>
-        {value}
-      </span>
-    </div>
-  )
-}
-
 
 function Info({
   label,

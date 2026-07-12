@@ -8,7 +8,7 @@ const authApi = AuthenticationApiFactory(apiConfiguration, undefined, apiClient)
 export const authService = {
   login: (payload: Pick<TokenObtainPair, 'username' | 'password'>) =>
     authApi.authLoginCreate({
-      tokenObtainPair: { ...payload, access: '', refresh: '' },
+      tokenObtainPair: payload as TokenObtainPair,
     }),
   refresh: (payload: TokenRefresh) =>
     authApi.authRefreshCreate({

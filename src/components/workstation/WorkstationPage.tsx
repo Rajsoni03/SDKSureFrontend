@@ -6,6 +6,7 @@ import { WorkstationCard } from './WorkstationCard'
 import { WorkstationFormModal } from './WorkstationFormModal'
 import { Button } from '../ui/button'
 import { apiCall } from '@/lib/apiHandler'
+import { workstationsService } from '@/services/workstations'
 
 export function WorkstationsPage() {
   const [search, setSearch] = useState('')
@@ -104,6 +105,13 @@ export function WorkstationsPage() {
                 onEdit={(p) => {
                   setEditing(p)
                   setShowModal(true)
+                }}
+                onPing={async (id) => {
+                  await apiCall(() => workstationsService.ping(id), {
+                    successMessage: `${pc.hostname}: health check passed`,
+                    errorMessage: `${pc.hostname}: health check failed`,
+                  })
+                  refetch()
                 }}
               />
             ))}

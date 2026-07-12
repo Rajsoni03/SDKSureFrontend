@@ -13,8 +13,8 @@ export function TestRunCard({ run }: { run: TestRun }) {
             {run.description && <p className="text-xs theme-muted">{run.description}</p>}
           </div>
           <div className="text-right text-xs theme-muted">
-            <p>Created: {new Date(run.created_at).toLocaleString()}</p>
-            <p>Updated: {new Date(run.updated_at).toLocaleString()}</p>
+            <p>Created: {run.created_at ? new Date(run.created_at).toLocaleString() : '—'}</p>
+            <p>Updated: {run.updated_at ? new Date(run.updated_at).toLocaleString() : '—'}</p>
           </div>
         </div>
 

@@ -20,6 +20,7 @@ export function TestScenarioFormModal({ isOpen, onClose, onSaved, editingScenari
   const [description, setDescription] = useState('')
   const [testCaseIds, setTestCaseIds] = useState<string[]>([])
   const [labelIds, setLabelIds] = useState<string[]>([])
+  const [saving, setSaving] = useState(false)
   const isEditing = !!editingScenario
   const { data: testCasesData } = useTestCases({ ordering: 'title', page: 1 })
   const { data: labelsData } = useLabels({ ordering: 'name', page: 1 })
@@ -68,18 +69,23 @@ export function TestScenarioFormModal({ isOpen, onClose, onSaved, editingScenari
       label_ids: labelIds.map((id) => Number(id)),
     }
 
-    await apiCall(
-      () =>
-        isEditing && editingScenario
-          ? testScenariosService.update(editingScenario.id, payload as any)
-          : testScenariosService.create(payload),
-      {
-        successMessage: isEditing ? 'Scenario updated' : 'Scenario created',
-        errorMessage: 'Failed to save scenario',
-      },
-    )
-    onSaved?.()
-    onClose()
+    setSaving(true)
+    try {
+      await apiCall(
+        () =>
+          isEditing && editingScenario
+            ? testScenariosService.update(editingScenario.id, payload as any)
+            : testScenariosService.create(payload),
+        {
+          successMessage: isEditing ? 'Scenario updated' : 'Scenario created',
+          errorMessage: 'Failed to save scenario',
+        },
+      )
+      onSaved?.()
+      onClose()
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -144,7 +150,7 @@ export function TestScenarioFormModal({ isOpen, onClose, onSaved, editingScenari
             <Button type="button" variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? 'Update' : 'Create'}</Button>
+            <Button type="submit" disabled={saving}>{saving ? 'Saving...' : isEditing ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </div>

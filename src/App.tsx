@@ -21,9 +21,11 @@ import { useAuth } from '@/hooks/useAuth'
 import { useThemeStore } from '@/store/themeStore'
 import { cn } from '@/lib/utils'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { RoleEnum } from '@/services/api/generated/models/role-enum'
 
 function App() {
   const { isAuthenticated, tokens, user } = useAuthStore()
+  const isAdmin = user?.role === RoleEnum.ADMIN || user?.role === RoleEnum.SUPER_ADMIN
   const { logout, fetchCurrentUser } = useAuth()
   const { theme } = useThemeStore()
   const isDark = theme === 'dark'
@@ -35,7 +37,7 @@ function App() {
   }, [theme])
 
   useEffect(() => {
-    if (tokens && !user) {
+    if (tokens && (!user || !user.role)) {
       fetchCurrentUser().catch(() => {
         // if fetch fails, auth interceptor will handle redirect on next request
       })
@@ -129,8 +131,8 @@ function App() {
             <Route path="/boards" element={<BoardsPage />} />
             <Route path="/test-runs" element={<TestRunsPage />} />
             <Route path="/test-cases" element={<TestCasesPage />} />
-            <Route path="/users" element={<UsersPage />} />
-            <Route path="/configs" element={<SystemConfigsPage />} />
+            <Route path="/users" element={isAdmin ? <UsersPage /> : <Navigate to="/" replace />} />
+            <Route path="/configs" element={isAdmin ? <SystemConfigsPage /> : <Navigate to="/" replace />} />
             <Route path="/labels" element={<LabelsPage />} />
             <Route path="/capabilities" element={<CapabilitiesPage />} />
             <Route path="/relays" element={<RelaysPage />} />

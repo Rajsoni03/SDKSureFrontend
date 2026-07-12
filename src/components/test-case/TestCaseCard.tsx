@@ -36,7 +36,7 @@ export function TestCaseCard({ testCase }: { testCase: TestCase }) {
 
         <div className="flex items-center justify-between text-xs theme-muted">
           <span>Active: {testCase.is_active ? 'Yes' : 'No'}</span>
-          <span>Updated: {new Date(testCase.updated_at).toLocaleString()}</span>
+          <span>Updated: {testCase.updated_at ? new Date(testCase.updated_at).toLocaleString() : '—'}</span>
         </div>
       </div>
     </div>

@@ -15,5 +15,4 @@ export const apiConfiguration = new Configuration({
     if (typeof window === 'undefined') return ''
     return window.localStorage.getItem('accessToken') ?? ''
   },
-  baseOptions: apiClient.defaults,
 })

@@ -49,8 +49,8 @@ export function TestScenarioCard({ scenario, onEdit }: Props) {
         </div>
 
         <div className="flex items-center justify-between text-[11px] theme-muted">
-          <span>Created: {new Date(scenario.created_at).toLocaleString()}</span>
-          <span>Updated: {new Date(scenario.updated_at).toLocaleString()}</span>
+          <span>Created: {scenario.created_at ? new Date(scenario.created_at).toLocaleString() : '—'}</span>
+          <span>Updated: {scenario.updated_at ? new Date(scenario.updated_at).toLocaleString() : '—'}</span>
         </div>
       </div>
     </div>

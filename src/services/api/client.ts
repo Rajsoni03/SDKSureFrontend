@@ -11,20 +11,6 @@ export const apiClient = axios.create({
   timeout: Number(config.VITE_API_TIMEOUT ?? 30000),
 })
 
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error?.response?.status === 401) {
-      const authStore = useAuthStore.getState()
-      authStore.clear()
-      if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
-        window.location.href = '/'
-      }
-    }
-    return Promise.reject(error)
-  },
-)
-
 apiClient.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     const token = window.localStorage.getItem('accessToken')
@@ -38,6 +24,14 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error?.response?.status === 401) {
+      const authStore = useAuthStore.getState()
+      authStore.clear()
+      if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        window.location.href = '/'
+      }
+    }
+
     // Surface meaningful error messages; extend with refresh-token handling when auth is wired.
     const message =
       error.response?.data?.detail ||

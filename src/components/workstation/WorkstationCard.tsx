@@ -1,8 +1,10 @@
-import { Computer, Shield, Wifi, HardDrive } from 'lucide-react'
+import { useState } from 'react'
+import { Computer, Shield, Wifi, HardDrive, HeartPulse, Copy } from 'lucide-react'
 import type { Workstation } from '@/services/api/generated/models/workstation'
 import { WorkstationstatusEnum } from '@/services/api/generated/models/workstationstatus-enum'
 import { OsVersionEnum } from '@/services/api/generated/models/os-version-enum'
 import { Button } from '../ui/button'
+import { copyToClipboard } from '@/lib/clipboard'
 
 const statusStyles: Record<WorkstationstatusEnum, { label: string; className: string }> = {
   [WorkstationstatusEnum.ONLINE]: { label: 'Online', className: 'bg-emerald-500/15 text-emerald-200' },
@@ -11,8 +13,35 @@ const statusStyles: Record<WorkstationstatusEnum, { label: string; className: st
   [WorkstationstatusEnum.INITIALIZING]: { label: 'Initializing', className: 'bg-blue-500/15 text-blue-200' },
 }
 
-export function WorkstationCard({ pc, onEdit }: { pc: Workstation; onEdit?: (pc: Workstation) => void }) {
+interface Props {
+  pc: Workstation
+  onEdit?: (pc: Workstation) => void
+  onPing?: (id: string) => Promise<void>
+}
+
+export function WorkstationCard({ pc, onEdit, onPing }: Props) {
+  const [pinging, setPinging] = useState(false)
+  const [tokenCopied, setTokenCopied] = useState(false)
   const status = pc.status ? statusStyles[pc.status] : statusStyles[WorkstationstatusEnum.OFFLINE]
+
+  const handleCopyToken = () => {
+    if (!pc.auth_token) return
+    copyToClipboard(pc.auth_token, 'Auth token copied!').then(() => {
+      setTokenCopied(true)
+      setTimeout(() => setTokenCopied(false), 2000)
+    })
+  }
+
+  const handlePing = async () => {
+    if (!onPing || pinging) return
+    setPinging(true)
+    try {
+      await onPing(pc.id)
+    } finally {
+      setPinging(false)
+    }
+  }
+
   return (
     <div className="relative overflow-hidden rounded-2xl border theme-border theme-panel-soft p-4 transition hover:-translate-y-0.5 hover:border-emerald-400/50 hover:shadow-[var(--shadow)]">
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5" />
@@ -50,14 +79,40 @@ export function WorkstationCard({ pc, onEdit }: { pc: Workstation; onEdit?: (pc:
           />
         </div>
 
-        <div className="flex items-center justify-between text-xs theme-muted">
-          <span>
-            Available: {pc.is_available_for_testing ?? '—'} · Heartbeat:{' '}
+        <div className="space-y-2">
+          {pc.auth_token && (
+            <div className="flex items-center gap-2 rounded-lg border theme-border bg-black/5 px-3 py-2">
+              <span className="text-xs theme-muted shrink-0">Token:</span>
+              <span className="flex-1 truncate font-mono text-xs theme-text">{pc.auth_token}</span>
+              <button
+                type="button"
+                title={tokenCopied ? 'Copied!' : 'Copy token'}
+                onClick={handleCopyToken}
+                className="shrink-0 text-slate-400 hover:text-emerald-300 transition"
+              >
+                <Copy className={`h-3.5 w-3.5 ${tokenCopied ? 'text-emerald-400' : ''}`} />
+              </button>
+            </div>
+          )}
+          <div className="text-xs theme-muted">
+            Available: {String(pc.is_available_for_testing ?? '—')} · Heartbeat:{' '}
             {pc.last_heartbeat_at ? new Date(pc.last_heartbeat_at).toLocaleString() : '—'}
-          </span>
-          <Button variant="secondary" size="sm" className="gap-2" onClick={() => onEdit?.(pc)}>
-            Edit
-          </Button>
+          </div>
+          <div className="flex justify-end gap-2">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              disabled={pinging}
+              onClick={handlePing}
+            >
+              <HeartPulse className={`h-4 w-4 ${pinging ? 'animate-pulse text-emerald-400' : ''}`} />
+              {pinging ? 'Checking...' : 'Check Health'}
+            </Button>
+            <Button variant="secondary" size="sm" className="gap-2" onClick={() => onEdit?.(pc)}>
+              Edit
+            </Button>
+          </div>
         </div>
       </div>
     </div>

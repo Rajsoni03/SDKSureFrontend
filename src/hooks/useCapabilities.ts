@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { capabilitiesService } from '@/services/capabilities'
 
 export interface CapabilityFilters {
@@ -12,7 +12,7 @@ export function useCapabilities(filters: CapabilityFilters) {
   return useQuery({
     queryKey: ['capabilities', filters],
     queryFn: () => capabilitiesService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

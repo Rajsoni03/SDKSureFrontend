@@ -21,6 +21,7 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
   const [location, setLocation] = useState('')
   const [ipAddress, setIpAddress] = useState('')
   const [portCount, setPortCount] = useState<number | ''>('')
+  const [saving, setSaving] = useState(false)
 
   const isEditing = !!editingRelay
 
@@ -47,33 +48,38 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    await apiCall(
-      () =>
-        isEditing && editingRelay
-          ? relaysService.update(editingRelay.id, {
-              relay_name: relayName,
-              model_type: modelType || ModelTypeEnum.CUSTOM,
-              status: status || RelayStatusEnum.ACTIVE,
-              location: location || undefined,
-              ip_address: ipAddress,
-              port_count: portCount === '' ? undefined : portCount,
-            })
-          : relaysService.create({
-              relay_name: relayName,
-              model_type: modelType || ModelTypeEnum.CUSTOM,
-              status: status || RelayStatusEnum.ACTIVE,
-              location: location || undefined,
-              ip_address: ipAddress,
-              port_count: portCount === '' ? undefined : portCount,
-            }),
-      {
-        successMessage: isEditing ? 'Relay updated' : 'Relay created',
-        errorMessage: 'Failed to save relay',
-      },
-    )
+    setSaving(true)
+    try {
+      await apiCall(
+        () =>
+          isEditing && editingRelay
+            ? relaysService.update(editingRelay.id, {
+                relay_name: relayName,
+                model_type: modelType || ModelTypeEnum.CUSTOM,
+                status: status || RelayStatusEnum.ACTIVE,
+                location: location || undefined,
+                ip_address: ipAddress,
+                port_count: portCount === '' ? undefined : portCount,
+              })
+            : relaysService.create({
+                relay_name: relayName,
+                model_type: modelType || ModelTypeEnum.CUSTOM,
+                status: status || RelayStatusEnum.ACTIVE,
+                location: location || undefined,
+                ip_address: ipAddress,
+                port_count: portCount === '' ? undefined : portCount,
+              }),
+        {
+          successMessage: isEditing ? 'Relay updated' : 'Relay created',
+          errorMessage: 'Failed to save relay',
+        },
+      )
 
-    onSaved?.()
-    onClose()
+      onSaved?.()
+      onClose()
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -165,7 +171,7 @@ export function RelayFormModal({ isOpen, onClose, onSaved, editingRelay }: Props
             <Button type="button" variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? 'Update' : 'Create'}</Button>
+            <Button type="submit" disabled={saving}>{saving ? 'Saving...' : isEditing ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </div>

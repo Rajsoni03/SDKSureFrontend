@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { usersService } from '@/services/users'
 
 export interface UserFilters {
@@ -11,7 +11,7 @@ export function useUsers(filters: UserFilters) {
   return useQuery({
     queryKey: ['users', filters],
     queryFn: () => usersService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

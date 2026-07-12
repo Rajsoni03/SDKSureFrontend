@@ -20,6 +20,7 @@ export function TestRunFormModal({ isOpen, onClose, onSaved, editingRun }: Props
   const [description, setDescription] = useState('')
   const [scenarioIds, setScenarioIds] = useState<string[]>([])
   const [labelIds, setLabelIds] = useState<string[]>([])
+  const [saving, setSaving] = useState(false)
   const isEditing = !!editingRun
 
   const { data: labelsData } = useLabels({ ordering: 'name', page: 1 })
@@ -69,18 +70,23 @@ export function TestRunFormModal({ isOpen, onClose, onSaved, editingRun }: Props
       label_ids: labelIds.map((id) => Number(id)),
     }
 
-    await apiCall(
-      () =>
-        isEditing && editingRun
-          ? testRunsService.update(editingRun.id, payload as any)
-          : testRunsService.create(payload as any),
-      {
-        successMessage: isEditing ? 'Test run updated' : 'Test run created',
-        errorMessage: 'Failed to save test run',
-      },
-    )
-    onSaved?.()
-    onClose()
+    setSaving(true)
+    try {
+      await apiCall(
+        () =>
+          isEditing && editingRun
+            ? testRunsService.update(editingRun.id, payload as any)
+            : testRunsService.create(payload as any),
+        {
+          successMessage: isEditing ? 'Test run updated' : 'Test run created',
+          errorMessage: 'Failed to save test run',
+        },
+      )
+      onSaved?.()
+      onClose()
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -145,7 +151,7 @@ export function TestRunFormModal({ isOpen, onClose, onSaved, editingRun }: Props
             <Button type="button" variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? 'Update' : 'Create'}</Button>
+            <Button type="submit" disabled={saving}>{saving ? 'Saving...' : isEditing ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </div>

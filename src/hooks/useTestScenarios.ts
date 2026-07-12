@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { testScenariosService } from '@/services/testScenarios'
 
 export interface TestScenarioFilters {
@@ -11,7 +11,7 @@ export function useTestScenarios(filters: TestScenarioFilters) {
   return useQuery({
     queryKey: ['test-scenarios', filters],
     queryFn: () => testScenariosService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

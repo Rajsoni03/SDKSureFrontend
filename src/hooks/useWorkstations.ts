@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { workstationsService } from '@/services/workstations'
 
 export interface WorkstationFilters {
@@ -12,7 +12,7 @@ export function useWorkstations(filters: WorkstationFilters) {
   return useQuery({
     queryKey: ['workstations', filters],
     queryFn: () => workstationsService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

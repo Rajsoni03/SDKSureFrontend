@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { boardsService } from '@/services/boards'
 
 export interface BoardFilters {
@@ -12,7 +12,7 @@ export function useBoards(filters: BoardFilters) {
   return useQuery({
     queryKey: ['boards', filters],
     queryFn: () => boardsService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { labelsService } from '@/services/labels'
 
 export interface LabelFilters {
@@ -11,7 +11,7 @@ export function useLabels(filters: LabelFilters) {
   return useQuery({
     queryKey: ['labels', filters],
     queryFn: () => labelsService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

@@ -88,7 +88,7 @@ export function DashboardMetrics() {
                     {formatValue(metric.value)}
                   </p>
                   <p className="text-xs text-slate-400">
-                    Refreshed {new Date(metric.refreshed_at).toLocaleString()}
+                    Refreshed {metric.refreshed_at ? new Date(metric.refreshed_at).toLocaleString() : '—'}
                   </p>
                 </div>
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-emerald-300">

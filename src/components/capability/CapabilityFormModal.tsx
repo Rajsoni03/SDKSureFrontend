@@ -16,6 +16,7 @@ export function CapabilityFormModal({ isOpen, onClose, onSaved, editingCapabilit
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [isActive, setIsActive] = useState(true)
+  const [saving, setSaving] = useState(false)
   const isEditing = !!editingCapability
 
   useEffect(() => {
@@ -34,26 +35,31 @@ export function CapabilityFormModal({ isOpen, onClose, onSaved, editingCapabilit
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await apiCall(
-      () =>
-        isEditing && editingCapability
-          ? capabilitiesService.update(editingCapability.id, {
-              name,
-              description: description || undefined,
-              is_active: isActive,
-            })
-          : capabilitiesService.create({
-              name,
-              description: description || undefined,
-              is_active: isActive,
-            }),
-      {
-        successMessage: isEditing ? 'Capability updated' : 'Capability created',
-        errorMessage: 'Failed to save capability',
-      },
-    )
-    onSaved?.()
-    onClose()
+    setSaving(true)
+    try {
+      await apiCall(
+        () =>
+          isEditing && editingCapability
+            ? capabilitiesService.update(editingCapability.id, {
+                name,
+                description: description || undefined,
+                is_active: isActive,
+              })
+            : capabilitiesService.create({
+                name,
+                description: description || undefined,
+                is_active: isActive,
+              }),
+        {
+          successMessage: isEditing ? 'Capability updated' : 'Capability created',
+          errorMessage: 'Failed to save capability',
+        },
+      )
+      onSaved?.()
+      onClose()
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -106,7 +112,7 @@ export function CapabilityFormModal({ isOpen, onClose, onSaved, editingCapabilit
             <Button type="button" variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? 'Update' : 'Create'}</Button>
+            <Button type="submit" disabled={saving}>{saving ? 'Saving...' : isEditing ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </div>

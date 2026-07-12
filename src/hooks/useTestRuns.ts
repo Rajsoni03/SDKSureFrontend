@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { testRunsService } from '@/services/testRuns'
 
 export interface TestRunFilters {
@@ -14,7 +14,7 @@ export function useTestRuns(filters: TestRunFilters) {
   return useQuery({
     queryKey: ['test-runs', filters],
     queryFn: () => testRunsService.list(filters).then((res) => res.data),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 10_000,
   })
 }

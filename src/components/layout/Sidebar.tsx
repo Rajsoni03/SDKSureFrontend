@@ -5,7 +5,6 @@ import {
   Compass,
   Home,
   Layers,
-  RadioTower,
   Settings,
   Users,
   MonitorSmartphone,
@@ -14,21 +13,22 @@ import {
 import { NavLink } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useAuthStore } from '@/store/authStore'
+import { RoleEnum } from '@/services/api/generated/models/role-enum'
 import config from '../../../config.json'
 
-const navItems = [
-  { label: 'Dashboard', icon: Home, href: '/' },
-  { label: 'Boards', icon: Cpu, href: '/boards' },
-  { label: 'Test Runs', icon: Activity, href: '/test-runs' },
-  { label: 'Test Cases', icon: Layers, href: '/test-cases' },
-  { label: 'Test Scenarios', icon: Compass, href: '/test-scenarios' },
-  { label: 'Users', icon: Users, href: '/users' },
-  { label: 'Configs', icon: Settings, href: '/configs' },
-  { label: 'Labels', icon: BarChart2, href: '/labels' },
-  { label: 'Capabilities', icon: Activity, href: '/capabilities' },
-  { label: 'Relays', icon: Plug, href: '/relays' },
-  { label: 'Workstations', icon: MonitorSmartphone, href: '/workstations' },
-  { label: 'Analytics', icon: BarChart2, href: '/analytics' },
+const allNavItems = [
+  { label: 'Dashboard', icon: Home, href: '/', adminOnly: false },
+  { label: 'Boards', icon: Cpu, href: '/boards', adminOnly: false },
+  { label: 'Test Runs', icon: Activity, href: '/test-runs', adminOnly: false },
+  { label: 'Test Cases', icon: Layers, href: '/test-cases', adminOnly: false },
+  { label: 'Test Scenarios', icon: Compass, href: '/test-scenarios', adminOnly: false },
+  { label: 'Labels', icon: BarChart2, href: '/labels', adminOnly: false },
+  { label: 'Capabilities', icon: Activity, href: '/capabilities', adminOnly: false },
+  { label: 'Relays', icon: Plug, href: '/relays', adminOnly: false },
+  { label: 'Workstations', icon: MonitorSmartphone, href: '/workstations', adminOnly: false },
+  { label: 'Users', icon: Users, href: '/users', adminOnly: true },
+  { label: 'Configs', icon: Settings, href: '/configs', adminOnly: true },
 ]
 
 type SidebarProps = {
@@ -37,6 +37,10 @@ type SidebarProps = {
 }
 
 export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
+  const { user } = useAuthStore()
+  const isAdmin = user?.role === RoleEnum.ADMIN || user?.role === RoleEnum.SUPER_ADMIN
+  const navItems = allNavItems.filter((item) => !item.adminOnly || isAdmin)
+
   return (
     <aside
       className={cn(
